@@ -8,7 +8,8 @@ import {
   CustomButtonText, 
   SignMessageButton,
   SignMessageText,
-  SignMessageTextButton
+  SignMessageTextButton,
+  AppAlert
 } from '@/screens/SignUp/style';
 import { personIcon, emailIcon, passwordIcon} from '@/constants/icons';
 import { Animated, Platform } from 'react-native';
@@ -50,6 +51,16 @@ const SignUp = () => {
     });
   }
 
+  const handleCadastrar = () => {
+    service.cadastrar(nameField, emailField, passwordField).then((data:any) => {
+      if(data.message){
+        AppAlert.alert('Alerta', data.message, [
+          {text: 'OK'}
+        ]);
+      }
+    });
+  }
+
   return (
     <Container>
       <AreaTecladoView 
@@ -79,7 +90,7 @@ const SignUp = () => {
             value={passwordField}
             onChangeText={password => setPasswordField(password)}
             password={true}/>
-          <CustomButton onPress={() => service.cadastrar(nameField, emailField, passwordField)}>
+          <CustomButton onPress={handleCadastrar}>
             <CustomButtonText>Cadastrar</CustomButtonText>
           </CustomButton>
         </Animated.View>

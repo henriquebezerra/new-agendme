@@ -1,3 +1,5 @@
+import { Authenticated } from '@/model/authenticated.model';
+import  { Validation }  from '@/model/interfaces/validations';
 import { API_BASE_URL  } from '@env';
 import axios, { AxiosInstance } from 'axios';
 
@@ -24,19 +26,21 @@ export class ApiSignUp {
     } catch (error) {
         if (axios.isAxiosError(error) && error.response) {
             const status = error.response.status;
-            let retorno: any;
+            let retorno: Validation = { message: '' };
 
             // Verifica se o status é 400 e formata a mensagem
-            if (status === 400 && error.response.data && error.response.data.parameterViolations) {
-                retorno = { message: error.response.data.parameterViolations[0].message };
+            if (status === 400 && error.response.data && error.response.data.violations) {
+                retorno.message  = error.response.data.violations[0].message;
             } else {
-                retorno = { message: 'Erro ao cadastrar usuário.' };
+                retorno.message = error.response.data.message;
             }
 
             return retorno;
         } else {
+            let erroRequest = 'Erro na requisição'
             console.error("Erro na requisição:", error);
-            throw error; // Re-throw error if not Axios-specific
+            alert(erroRequest);
+            throw error; 
         }
     }
   }
