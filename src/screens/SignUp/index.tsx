@@ -16,6 +16,7 @@ import { Animated, Platform } from 'react-native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { useNavigation } from '@react-navigation/native';
 import { SignUpAction } from '@/screens/SignUp/actions';
+import { Authenticated } from '@/model/authenticated.model';
 
 type RootStackParamList = {
   SignIn: undefined;
@@ -52,9 +53,13 @@ const SignUp = () => {
   }
 
   const handleCadastrar = () => {
-    service.cadastrar(nameField, emailField, passwordField).then((data:any) => {
-      if(data.message){
-        AppAlert.alert('Alerta', data.message, [
+    service.cadastrar(nameField, emailField, passwordField)
+    .then((data: Authenticated) => {
+      console.log('Usuário cadastrado com sucesso!!');
+    })
+    .catch((error) => {
+      if(error.message){
+        AppAlert.alert('Alerta', error.message, [
           {text: 'OK'}
         ]);
       }
