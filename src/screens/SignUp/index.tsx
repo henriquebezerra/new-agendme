@@ -11,7 +11,7 @@ import {
   SignMessageTextButton,
   AppAlert
 } from '@/screens/SignUp/style';
-import { personIcon, emailIcon, passwordIcon} from '@/constants/icons';
+import { PersonIcon, EmailIcon, PasswordIcon} from '@/constants/icons';
 import { Animated, Platform } from 'react-native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { useNavigation } from '@react-navigation/native';
@@ -58,11 +58,9 @@ const SignUp = () => {
       console.log('Usuário cadastrado com sucesso!!');
     })
     .catch((error) => {
-      if(error.message){
-        AppAlert.alert('Alerta', error.message, [
-          {text: 'OK'}
-        ]);
-      }
+      AppAlert.alert('Alerta', error.message, [
+        {text: 'OK'}
+      ]);
     });
   }
 
@@ -78,19 +76,19 @@ const SignUp = () => {
           }]
         }]}>
         <SignInput 
-          icon={personIcon}
+          icon={<PersonIcon/>}
           placeholder='Digite seu nome'
           value={nameField}
           onChangeText={name=>setNameField(name)}/>
 
           <SignInput 
-            icon={emailIcon}
+            icon={<EmailIcon/>}
             placeholder='Digite seu e-mail'
             value={emailField}
             onChangeText={email=>setEmailField(email)}/>
 
           <SignInput 
-            icon={passwordIcon} 
+            icon={<PasswordIcon/>} 
             placeholder='Digite sua senha'
             value={passwordField}
             onChangeText={password => setPasswordField(password)}

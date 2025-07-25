@@ -1,3 +1,4 @@
+import { Authenticated } from '@/model/authenticated.model';
 import { ApiSignUp } from '@/services/SignUp/api';
 
 export class SignUpAction {
@@ -8,8 +9,8 @@ export class SignUpAction {
     this.api = new ApiSignUp();
   }
 
-  public async cadastrar(nome: string, email: string, password: string): Promise<any> {
-    return await this.api.cadastrar(nome, email, password);
+  public cadastrar(nome: string, email: string, password: string): Promise<Authenticated> {
+    return this.api.cadastrar(nome, email, password);
   }
   
 }

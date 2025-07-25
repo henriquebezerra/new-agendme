@@ -1,4 +1,4 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet, Alert } from 'react-native';
 import styled from "styled-components/native";
 
 export const AnimatedViewStyle = StyleSheet.create({
@@ -46,3 +46,5 @@ export const AreaTecladoView = styled.KeyboardAvoidingView`
     flex: 1;
     align-items: center;
     justify-content: center;`;
+
+export const AppAlert = Alert;

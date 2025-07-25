@@ -3,6 +3,7 @@ import SignIn from "@/screens/SignIn";
 import SignUp from "@/screens/SignUp";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import UserNavigator from "./UserNavigator";
 
 
 const Stack = createNativeStackNavigator();
@@ -19,8 +20,8 @@ export default function AppNavigator() {
         <Stack.Screen name="Preload" component={Preload}/>
         <Stack.Screen name="SignIn" component={SignIn}/>
         <Stack.Screen name="SignUp" component={SignUp}/>
+        <Stack.Screen name="UserNavigator" component={UserNavigator}/>
       </Stack.Navigator>
     </NavigationContainer>
   );
-
 }

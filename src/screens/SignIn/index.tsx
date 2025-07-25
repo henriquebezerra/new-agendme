@@ -7,19 +7,25 @@ import {
   CustomButtonText,
   SignMessageButton,
   SignMessageText,
-  SignMessageTextButton
+  SignMessageTextButton,
+  AppAlert
 } from "@/screens/SignIn/style";
 import { Animated } from "react-native";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import SignInput from '@components/SignInput';
 import { Platform } from 'react-native';
 import ImageLogo from "@/components/ImageLogo";
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import { emailIcon, passwordIcon } from "@/constants/icons";
+import { EmailIcon, PasswordIcon } from "@/constants/icons";
+import { SignInAction } from "./actions";
+import { Authenticated } from "@/model/authenticated.model";
+import { UserContext } from "@/contexts/UserContext";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 type RootStackParamList = {
   SignUp: undefined;
+  UserNavigator: undefined
 };
 
 type PreloadScreenProp = NativeStackNavigationProp<RootStackParamList>;
@@ -31,6 +37,8 @@ const SignIn=() => {
   const [emailField, setEmailField] = useState('');
   const [passwordField, setPasswordField] = useState('');
   const navigation = useNavigation<PreloadScreenProp>();
+  const {dispatch: userDispatch } = useContext(UserContext);
+  const service = new SignInAction();
 
   useEffect(() =>{
     iniciarAnimacao();
@@ -49,6 +57,32 @@ const SignIn=() => {
     navigation.reset({routes: [{name:'SignUp'}]});
   }
 
+  const abrirTelaPrincipal = () => {
+    navigation.reset({
+      routes:[{name:'UserNavigator'}]
+    });
+  }
+
+  const login = () => {
+    service.login(emailField, passwordField)
+      .then(async (data:Authenticated) => {
+        await AsyncStorage.setItem('token', data.token);
+        userDispatch({
+          type: 'setAvatar',
+          payload:{
+            avatar:'http://img.freepik.com/foto-gratis/foto-primer-plano-amable-hombre-rubio-sonriendo-mientras-posa_132075-8195.jpg?t=st=1652130495~exp=1652131095~hmac=cd779c32e4a3c58f3d1a5a83655414a2a27a75ada4106986f05f6d42f8a813e7&w=360'
+          }
+        });
+        console.log('Login feito com sucesso');
+        abrirTelaPrincipal();
+    })
+    .catch((error) => {
+      AppAlert.alert('Alerta', error.message, [
+        {text: 'OK'}
+      ]);
+    })
+  }
+
   return (
     <Container>
       <AreaTecladoView 
@@ -64,18 +98,18 @@ const SignIn=() => {
             placeholder='Digite seu e-mail'
             value={emailField}
             onChangeText={texto=>setEmailField(texto)}
-            icon={emailIcon}
+            icon={<EmailIcon/>}
           />
           <SignInput 
             placeholder='Digite sua senha'
             value={passwordField}
             onChangeText={password=>setPasswordField(password)}
-            icon={passwordIcon}
+            icon={<PasswordIcon/>}
             password={true}
           />
-          <CustomButton>
-          <CustomButtonText>Login</CustomButtonText>
-        </CustomButton>
+          <CustomButton onPress={login}>
+            <CustomButtonText>Login</CustomButtonText>
+          </CustomButton>
         </Animated.View>
         <SignMessageButton onPress={abrirTelaCadastro}>
           <SignMessageText>Ainda não possui uma conta?</SignMessageText>

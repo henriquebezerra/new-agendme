@@ -18,7 +18,6 @@ const SignInput: React.FC<SignInputProps> = ({
 }) => {
   return(
     <InputArea>
-      {/* <Entypo name="email" size={24} color="black" /> */}
       {icon}
       <InputField 
         placeholder={placeholder}
@@ -26,12 +25,8 @@ const SignInput: React.FC<SignInputProps> = ({
         value={value}
         onChangeText={onChangeText}
         secureTextEntry={password}>
-        
-
       </InputField>
-    
     </InputArea>
-
   );
 }
 
