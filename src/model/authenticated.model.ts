@@ -6,6 +6,7 @@ export class Authenticated {
   token: string;
   exp?: number;
   dataExpiracao?: Date;
+  avatar?: string;
 
   constructor(nome: string, email: string, senha: string, token: string) {
     this.nome = nome;

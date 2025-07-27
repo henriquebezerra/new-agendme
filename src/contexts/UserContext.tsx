@@ -5,7 +5,7 @@ import { inicitalState, UserReducer } from '@reducers/UserReducer';
 type UserState = typeof inicitalState;
 type UserDispatch = React.Dispatch<any>; // Idealmente, substitua 'any' pelo tipo das suas actions
 
-interface UserContextType {
+export interface UserContextType {
   state: UserState;
   dispatch: UserDispatch;
 }
