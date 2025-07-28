@@ -10,8 +10,7 @@ import {
 import { HomeIcon, SearchIcon, AppointmentIcon, FavoriteIcon } from "@/constants/icons";  
 
 
-const CustomTabBar = (
-  { navigation }: BottomTabBarProps) => {
+const CustomTabBar = ({ navigation }: BottomTabBarProps) => {
 
     const {state: user } = useContext(UserContext);
 

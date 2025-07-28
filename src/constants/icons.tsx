@@ -2,6 +2,7 @@ import Entypo from '@expo/vector-icons/Entypo';
 import FontAwesome6 from '@expo/vector-icons/FontAwesome6';
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 import Feather from '@expo/vector-icons/Feather';
+import FontAwesome from '@expo/vector-icons/FontAwesome';
 
 
 export const PersonIcon = ({size = 24, color = 'black'}) => {
@@ -30,4 +31,8 @@ export const AppointmentIcon = ({size = 24, color = 'black'}) => {
 
 export const FavoriteIcon = ({size = 24, color = 'black'}) => {
   return <MaterialIcons name="favorite-border" size={size} color={color} />
+}
+
+export const UserIcon = ({size = 24, color = 'black'}) => {
+  return <FontAwesome name="user" size={size} color={color} />
 }
