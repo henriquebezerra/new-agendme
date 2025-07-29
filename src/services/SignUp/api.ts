@@ -1,40 +1,19 @@
 import { Authenticated } from '@/model/authenticated.model';
-import { API_BASE_URL  } from '@env';
-import axios, { AxiosInstance } from 'axios';
-import { handleApiError } from '@/utils/handleError';
 import { OptionsType } from '@/types/options-type';
-
+import apiClient from '@/services/api';
 export class ApiSignUp {
-  private apiClient: AxiosInstance;
 
-  constructor() {
-    this.apiClient = axios.create({
-        baseURL: API_BASE_URL,
-        headers: {
-            'Content-Type': 'application/json',
-        },
-    });
-  }
-
-  public cadastrar(nome: string, email: string, password: string): Promise<Authenticated> {
-    return this.apiClient.post('/usuario', {
+  public async cadastrar(nome: string, email: string, password: string): Promise<Authenticated> {
+    const response = await apiClient.post('/usuario', {
         nome,
         email,
         senha: password
-    }).then(response => {
-        return response.data;
-    }).catch(error => {
-        handleApiError(error, axios);
     })
+    return response.data;
   }
 
-  public buscarPerfis(): Promise<OptionsType[]> {
-    return this.apiClient.get<OptionsType[]>('/usuario/perfis')
-        .then(response => {
-            return response.data;
-        }).catch(error => {
-            handleApiError(error, axios);
-            throw error;
-    });
+  public async buscarPerfis(): Promise<OptionsType[]> {
+    const response = await apiClient.get<OptionsType[]>('/usuario/perfis');
+    return response.data;
   }
 }
