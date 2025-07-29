@@ -20,6 +20,7 @@ import { Authenticated } from '@/model/authenticated.model';
 import DropdownPicker from '@/components/DropdownPicker';
 import { OptionsType, RootStackParamList } from '@/types/options-type';
 import { UserContext } from '@/contexts/UserContext';
+import { Usuario } from '@/model/usuario.model';
 
 type PreloadScreenProp = NativeStackNavigationProp<RootStackParamList>;
 
@@ -28,7 +29,7 @@ const SignUp = () => {
   const [nameField, setNameField] = useState('');
   const [emailField, setEmailField] = useState('');
   const [passwordField, setPasswordField] = useState('');
-  const [selectedValue, setSelectedValue] = useState("");
+  const [profileField, setProfileField] = useState<OptionsType>({label: '', value: ''});
   const [perfisOptions, setPerfisOptions] = useState<OptionsType[]>([]);
   const [offset] = useState(new Animated.ValueXY({x:0, y:80}));
   const navigation = useNavigation<PreloadScreenProp>();
@@ -50,7 +51,7 @@ const SignUp = () => {
   }
 
   const carregarPerfis = async () => {
-    setPerfisOptions(await service.buscarPerfis());
+    setPerfisOptions( await service.buscarPerfis());
   }
 
   const abrirTelaLogin = () => {
@@ -60,7 +61,8 @@ const SignUp = () => {
   }
 
   const handleCadastrar = () => {
-    service.cadastrar(nameField, emailField, passwordField).then((data:Authenticated) => {
+    let usuario = new Usuario(nameField, emailField, passwordField, profileField.value);
+    service.cadastrar(usuario).then((data:Authenticated) => {
       userDispatch({
         type: 'setUser',
         payload:{
@@ -103,8 +105,8 @@ const SignUp = () => {
             
           <DropdownPicker 
             options={perfisOptions} 
-            setSelectedValue={setSelectedValue} 
-            placeholder={selectedValue || 'Selecione seu perfil'}/>
+            setSelectedValue={setProfileField} 
+            placeholder={profileField.label || 'Selecione seu perfil'}/>
 
           <CustomButton onPress={handleCadastrar}>
             <CustomButtonText>Cadastrar</CustomButtonText>

@@ -14,7 +14,7 @@ import { OptionsType } from '@/types/options-type';
 
 interface DropdownPicker {
   options: OptionsType[];
-  setSelectedValue: (value: string) => void;
+  setSelectedValue: (value: OptionsType) => void;
   placeholder: string;
 }
 
@@ -22,7 +22,7 @@ const DropdownPicker: React.FC<DropdownPicker> = ({options, setSelectedValue, pl
 
   const [modalVisible, setModalVisible] = useState(false);
     
-  const handleOptionSelect = (value: string) => {
+  const handleOptionSelect = (value: OptionsType) => {
     setSelectedValue(value);
     setModalVisible(false);
   };
@@ -49,7 +49,7 @@ const DropdownPicker: React.FC<DropdownPicker> = ({options, setSelectedValue, pl
                 data={options}
                 keyExtractor={(item) => item.value}
                 renderItem={({ item }) => (
-                  <TouchableOpacity onPress={() => handleOptionSelect(item.label)}>
+                  <TouchableOpacity onPress={() => handleOptionSelect(item)}>
                     <Text style={styles.optionText}>{item.label}</Text>
                   </TouchableOpacity>
                   )}
