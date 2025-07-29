@@ -3,6 +3,7 @@ import { Authenticated } from "@/model/authenticated.model";
 import { ApiPreload } from "@/services/Preload/api";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useContext } from "react";
+import { AppAlert } from "../SignUp/style";
 
 export class PreloadAction {
 
@@ -14,8 +15,7 @@ export class PreloadAction {
     this.userDispatch = userDispatch;
   }
 
-  public async checkToken(): Promise<Authenticated>{
-    return new Promise(async (resolve, reject) => {
+  public async checkToken(){
       try {
         const token = await AsyncStorage.getItem('token');
         if(token){
@@ -29,14 +29,16 @@ export class PreloadAction {
                   user: authenticated
                 }
               });
-              resolve(authenticated);
-          } else reject();
+              
+          } else {
+            AppAlert.alert('Alerta', 'Não foi possível gerar credencial',[{text: 'OK'}]);
+            throw null;
+          }
         } else {
-          reject();
+          throw null;
         }
       } catch (error) {
-        reject(error);
+        throw error;
       }
-    });
   }
 }
