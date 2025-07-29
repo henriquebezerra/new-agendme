@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import ImageLogo from '@/components/ImageLogo';
 import SignInput from '@/components/SignInput';
 import {
@@ -19,6 +19,7 @@ import { SignUpAction } from '@/screens/SignUp/actions';
 import { Authenticated } from '@/model/authenticated.model';
 import DropdownPicker from '@/components/DropdownPicker';
 import { OptionsType, RootStackParamList } from '@/types/options-type';
+import { UserContext } from '@/contexts/UserContext';
 
 type PreloadScreenProp = NativeStackNavigationProp<RootStackParamList>;
 
@@ -32,21 +33,7 @@ const SignUp = () => {
   const [offset] = useState(new Animated.ValueXY({x:0, y:80}));
   const navigation = useNavigation<PreloadScreenProp>();
   const service = new SignUpAction();
-  // let options = [
-  //   { label: 'Opção 1', value: 'opcao1' },
-  //   { label: 'Opção 2', value: 'opcao2' },
-  //   { label: 'Opção 3', value: 'opcao3' },
-  //   { label: 'Opção 4', value: 'opcao4' },
-  //   { label: 'Opção 5', value: 'opcao5' },
-  //   { label: 'Opção 6', value: 'opcao6' },
-  //   { label: 'Opção 7', value: 'opcao7' },
-  //   { label: 'Opção 8', value: 'opcao8' },
-  //   { label: 'Opção 9', value: 'opcao9' },
-  //   { label: 'Opção 10', value: 'opcao10' },
-  // ];
-
-  //options = [];
-
+  const { dispatch: userDispatch } = useContext(UserContext);
 
   useEffect(() =>{
     iniciarAnimacao();
@@ -73,14 +60,14 @@ const SignUp = () => {
   }
 
   const handleCadastrar = () => {
-    service.cadastrar(nameField, emailField, passwordField)
-    .then((data: Authenticated) => {
-      console.log('Usuário cadastrado com sucesso!!');
-    })
-    .catch((error) => {
-      AppAlert.alert('Alerta', error.message, [
-        {text: 'OK'}
-      ]);
+    service.cadastrar(nameField, emailField, passwordField).then((data:Authenticated) => {
+      userDispatch({
+        type: 'setUser',
+        payload:{
+          user: data
+        }
+      });
+      navigation.reset({routes:[{name:'UserNavigator'}]});
     });
   }
 
@@ -118,6 +105,7 @@ const SignUp = () => {
             options={perfisOptions} 
             setSelectedValue={setSelectedValue} 
             placeholder={selectedValue || 'Selecione seu perfil'}/>
+
           <CustomButton onPress={handleCadastrar}>
             <CustomButtonText>Cadastrar</CustomButtonText>
           </CustomButton>

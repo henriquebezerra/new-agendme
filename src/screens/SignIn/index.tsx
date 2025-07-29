@@ -70,7 +70,6 @@ const SignIn=() => {
             user: data 
           }
         });
-        console.log('Login feito com sucesso');
         abrirTelaPrincipal();
     })
     .catch((error) => {

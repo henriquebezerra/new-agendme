@@ -17,21 +17,15 @@ export class ApiSignUp {
   }
 
   public cadastrar(nome: string, email: string, password: string): Promise<Authenticated> {
-    return new Promise((resolve, reject) => {
-        this.apiClient.post('/usuario', {
-            nome,
-            email,
-            senha: password
-        }).then(response => {
-            resolve(response.data);
-        }).catch(error => {
-            try {
-                handleApiError(error, axios);
-            } catch (error) {
-                reject(error);
-            }
-        })
-    });
+    return this.apiClient.post('/usuario', {
+        nome,
+        email,
+        senha: password
+    }).then(response => {
+        return response.data;
+    }).catch(error => {
+        handleApiError(error, axios);
+    })
   }
 
   public buscarPerfis(): Promise<OptionsType[]> {
