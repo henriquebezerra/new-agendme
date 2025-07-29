@@ -2,6 +2,7 @@ import { Authenticated } from '@/model/authenticated.model';
 import { API_BASE_URL  } from '@env';
 import axios, { AxiosInstance } from 'axios';
 import { handleApiError } from '@/utils/handleError';
+import { OptionsType } from '@/types/options-type';
 
 export class ApiSignUp {
   private apiClient: AxiosInstance;
@@ -30,6 +31,16 @@ export class ApiSignUp {
                 reject(error);
             }
         })
+    });
+  }
+
+  public buscarPerfis(): Promise<OptionsType[]> {
+    return this.apiClient.get<OptionsType[]>('/usuario/perfis')
+        .then(response => {
+            return response.data;
+        }).catch(error => {
+            handleApiError(error, axios);
+            throw error;
     });
   }
 }

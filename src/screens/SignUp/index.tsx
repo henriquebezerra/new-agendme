@@ -18,10 +18,7 @@ import { useNavigation } from '@react-navigation/native';
 import { SignUpAction } from '@/screens/SignUp/actions';
 import { Authenticated } from '@/model/authenticated.model';
 import DropdownPicker from '@/components/DropdownPicker';
-
-type RootStackParamList = {
-  SignIn: undefined;
-};
+import { OptionsType, RootStackParamList } from '@/types/options-type';
 
 type PreloadScreenProp = NativeStackNavigationProp<RootStackParamList>;
 
@@ -31,27 +28,29 @@ const SignUp = () => {
   const [emailField, setEmailField] = useState('');
   const [passwordField, setPasswordField] = useState('');
   const [selectedValue, setSelectedValue] = useState("");
+  const [perfisOptions, setPerfisOptions] = useState<OptionsType[]>([]);
   const [offset] = useState(new Animated.ValueXY({x:0, y:80}));
   const navigation = useNavigation<PreloadScreenProp>();
   const service = new SignUpAction();
-  let options = [
-    { label: 'Opção 1', value: 'opcao1' },
-    { label: 'Opção 2', value: 'opcao2' },
-    { label: 'Opção 3', value: 'opcao3' },
-    { label: 'Opção 4', value: 'opcao4' },
-    { label: 'Opção 5', value: 'opcao5' },
-    { label: 'Opção 6', value: 'opcao6' },
-    { label: 'Opção 7', value: 'opcao7' },
-    { label: 'Opção 8', value: 'opcao8' },
-    { label: 'Opção 9', value: 'opcao9' },
-    { label: 'Opção 10', value: 'opcao10' },
-  ];
+  // let options = [
+  //   { label: 'Opção 1', value: 'opcao1' },
+  //   { label: 'Opção 2', value: 'opcao2' },
+  //   { label: 'Opção 3', value: 'opcao3' },
+  //   { label: 'Opção 4', value: 'opcao4' },
+  //   { label: 'Opção 5', value: 'opcao5' },
+  //   { label: 'Opção 6', value: 'opcao6' },
+  //   { label: 'Opção 7', value: 'opcao7' },
+  //   { label: 'Opção 8', value: 'opcao8' },
+  //   { label: 'Opção 9', value: 'opcao9' },
+  //   { label: 'Opção 10', value: 'opcao10' },
+  // ];
 
   //options = [];
 
 
   useEffect(() =>{
     iniciarAnimacao();
+    carregarPerfis();
   }, []);
 
   const iniciarAnimacao = async () => {
@@ -61,6 +60,10 @@ const SignUp = () => {
       bounciness: 20,
       useNativeDriver: true
     }).start();
+  }
+
+  const carregarPerfis = async () => {
+    setPerfisOptions(await service.buscarPerfis());
   }
 
   const abrirTelaLogin = () => {
@@ -112,7 +115,7 @@ const SignUp = () => {
             password={true}/>
             
           <DropdownPicker 
-            options={options} 
+            options={perfisOptions} 
             setSelectedValue={setSelectedValue} 
             placeholder={selectedValue || 'Selecione seu perfil'}/>
           <CustomButton onPress={handleCadastrar}>

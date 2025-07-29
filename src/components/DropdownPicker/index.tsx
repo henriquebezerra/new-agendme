@@ -10,11 +10,7 @@ import {
   EmptyText,
   EmptyOptionView
 } from './style';
-
-type OptionsType = {
-  label: string;
-  value: string;
-}
+import { OptionsType } from '@/types/options-type';
 
 interface DropdownPicker {
   options: OptionsType[];

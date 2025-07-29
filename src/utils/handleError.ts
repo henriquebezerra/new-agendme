@@ -2,6 +2,14 @@ import { Validation } from "@/model/interfaces/validations";
 import { AxiosStatic } from "axios";
 
 const errosCodes = [400, 401];
+interface DefaultErrorMessages {
+  [key : string]: string
+}
+
+const defaultMessages:DefaultErrorMessages  = {
+  'ERR_NETWORK': 'Erro de conexão com o servidor'
+}
+
 
 export const handleApiError = (error:any, axios:AxiosStatic) => {
   if (axios.isAxiosError(error) && error.response) {
@@ -16,9 +24,11 @@ export const handleApiError = (error:any, axios:AxiosStatic) => {
 
     throw retorno;
   } else {
-    let erroRequest = 'Erro na requisição'
-    console.error("Erro na requisição:", error);
-    alert(erroRequest);
+    if(error.code && defaultMessages[error.code]){
+      alert(defaultMessages[error.code]);
+    } else {
+      alert('Erro na requisição');
+    }
     throw error;
   }
 }
