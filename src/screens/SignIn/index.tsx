@@ -62,7 +62,7 @@ const SignIn=() => {
   const login = () => {
     service.login(emailField, passwordField)
       .then(async (data:Authenticated) => {
-        await AsyncStorage.setItem('token', data.token);
+        await AsyncStorage.setItem('token', data.token || '' );
         data.avatar = 'http://img.freepik.com/foto-gratis/foto-primer-plano-amable-hombre-rubio-sonriendo-mientras-posa_132075-8195.jpg?t=st=1652130495~exp=1652131095~hmac=cd779c32e4a3c58f3d1a5a83655414a2a27a75ada4106986f05f6d42f8a813e7&w=360';
         userDispatch({
           type: 'setUser',

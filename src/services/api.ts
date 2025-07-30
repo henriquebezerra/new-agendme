@@ -1,10 +1,15 @@
-import axios, { type AxiosInstance } from 'axios';
+import axios, { AxiosError, type AxiosInstance } from 'axios';
 import { API_BASE_URL  } from '@env';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Validation } from '@/model/interfaces/validations';
+import { useContext } from 'react';
+import { UserContext } from '@/contexts/UserContext';
+import { Authenticated } from '@/model/authenticated.model';
 
 
-const errosCodes = [400, 401];
+const errosCodes = [400];
+
+const publicPaths = ['/auth/login', '/auth/refresh', '/usuario/perfis'];
 interface DefaultErrorMessages {
   [key : string]: string
 }
@@ -20,10 +25,31 @@ const apiClient: AxiosInstance = axios.create({
     },
 });
 
+const handleAuthorizationError = async(error: AxiosError) => {
+  const originalRequest = error.config as any;
+  const token = await AsyncStorage.getItem('token');
+  try {
+    if (token) {
+      const response = await axios.post('/auth/refresh', token, {
+        baseURL: API_BASE_URL,
+        headers: {
+          'Content-Type': 'text/plain'
+        }
+      });
+      const auth:Authenticated = response.data;
+      AsyncStorage.setItem('token', auth.token || '');
+      originalRequest.headers.Authorization = `Bearer ${auth.token}`;
+      return apiClient(originalRequest);
+    }
+  } catch (erro) {
+    throw erro;
+  }
+}
+
 apiClient.interceptors.request.use(
     async (config) => {
         const token = await AsyncStorage.getItem('token');
-        if (token) {
+        if (token && !publicPaths.includes(config.url || '')) {
           config.headers.Authorization = `Bearer ${token}`;
         }
         return config;
@@ -34,12 +60,17 @@ apiClient.interceptors.request.use(
 );
 
 
+
 apiClient.interceptors.response.use(
     (response) => response,
     (error) => {
         if (axios.isAxiosError(error) && error.response) {
             const status = error.response.status;
             let retorno: Validation = { message: '' };
+            
+            if(status === 401){
+              return handleAuthorizationError(error);
+            }
         
             if (errosCodes.includes(status) && error.response.data && error.response.data.violations) {
                 retorno.message  = error.response.data.violations[0].message;

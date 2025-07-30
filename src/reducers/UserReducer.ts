@@ -4,7 +4,7 @@ export const inicitalState = {
   avatar: '',
   favorites: [],
   agendamentos: [],
-  user: new Authenticated('', '', '', ''),
+  user: new Authenticated('', '', ''),
 };
 
 export const UserReducer = (state:any, action:any) => { 
