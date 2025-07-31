@@ -1,12 +1,12 @@
 import { Authenticated } from "@/model/authenticated.model";
-import { ApiSignIn } from "@/services/SignIn/api";
+import { SignInApi } from "@/services/SignIn/api";
 
 export class SignInAction {
 
-  private api: ApiSignIn;
+  private api: SignInApi;
 
   constructor(){
-    this.api = new ApiSignIn();
+    this.api = new SignInApi();
   }
 
   public login(email:string, password:string): Promise<Authenticated>{

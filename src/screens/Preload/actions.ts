@@ -1,15 +1,15 @@
 import { Authenticated } from "@/model/authenticated.model";
-import { ApiPreload } from "@/services/Preload/api";
+import { PreloadApi } from "@/services/Preload/api";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { AppAlert } from "../SignUp/style";
 
 export class PreloadAction {
 
   private userDispatch: any;
-  private api: ApiPreload;
+  private api: PreloadApi;
 
   constructor(userDispatch?: Function){
-    this.api = new ApiPreload();
+    this.api = new PreloadApi();
     this.userDispatch = userDispatch;
   }
 

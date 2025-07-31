@@ -1,16 +1,16 @@
 import { Authenticated } from '@/model/authenticated.model';
-import { ApiSignUp } from '@/services/SignUp/api';
-import { OptionsType } from '@/types/options-type';
+import { SignUpApi } from '@/services/SignUp/api';
+import { OptionsType } from '@/types/general-type';
 import { AppAlert } from '../SignIn/style';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Usuario } from '@/model/usuario.model';
 
 export class SignUpAction {
 
-  private api: ApiSignUp;
+  private api: SignUpApi;
 
   constructor(){
-    this.api = new ApiSignUp();
+    this.api = new SignUpApi();
   }
 
   public cadastrar(usuario:Usuario): Promise<Authenticated> {

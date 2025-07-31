@@ -5,7 +5,7 @@ import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import ImageLogo from "@/components/ImageLogo";
 import { PreloadAction } from "./actions";
 import { UserContext } from "@/contexts/UserContext";
-import { RootStackParamList } from "@/types/options-type";
+import { RootStackParamList } from "@/types/general-type";
 
 type PreloadScreenProp = NativeStackNavigationProp<RootStackParamList>;
 

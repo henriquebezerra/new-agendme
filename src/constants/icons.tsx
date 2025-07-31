@@ -18,7 +18,7 @@ export const PasswordIcon = ({size = 24, color = 'black'}) => {
 }
 
 export const HomeIcon = ({size = 24, color = 'black'}) => {
-  return <Entypo name="home" size={size} color={color} />
+  return <Feather name="home" size={size} color={color} />
 }
 
 export const SearchIcon = ({size = 24, color = 'black'}) => {
@@ -35,4 +35,8 @@ export const FavoriteIcon = ({size = 24, color = 'black'}) => {
 
 export const UserIcon = ({size = 24, color = 'black'}) => {
   return <FontAwesome name="user" size={size} color={color} />
+}
+
+export const LocationIcon = ({size = 24, color = 'black'}) => {
+  return <FontAwesome6 name="location-crosshairs" size={size} color={color} />
 }

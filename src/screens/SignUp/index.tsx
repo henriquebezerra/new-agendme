@@ -18,7 +18,7 @@ import { useNavigation } from '@react-navigation/native';
 import { SignUpAction } from '@/screens/SignUp/actions';
 import { Authenticated } from '@/model/authenticated.model';
 import DropdownPicker from '@/components/DropdownPicker';
-import { OptionsType, RootStackParamList } from '@/types/options-type';
+import { OptionsType, RootStackParamList } from '@/types/general-type';
 import { UserContext } from '@/contexts/UserContext';
 import { Usuario } from '@/model/usuario.model';
 

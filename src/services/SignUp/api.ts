@@ -1,8 +1,8 @@
 import { Authenticated } from '@/model/authenticated.model';
-import { OptionsType } from '@/types/options-type';
+import { OptionsType } from '@/types/general-type';
 import apiClient from '@/services/api';
 import { Usuario } from '@/model/usuario.model';
-export class ApiSignUp {
+export class SignUpApi {
 
   public async cadastrar(usuario:Usuario): Promise<Authenticated> {
     const response = await apiClient.post('/usuario', {

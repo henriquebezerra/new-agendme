@@ -22,7 +22,7 @@ import { SignInAction } from "./actions";
 import { Authenticated } from "@/model/authenticated.model";
 import { UserContext } from "@/contexts/UserContext";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { RootStackParamList } from "@/types/options-type";
+import { RootStackParamList } from "@/types/general-type";
 
 type PreloadScreenProp = NativeStackNavigationProp<RootStackParamList>;
 
