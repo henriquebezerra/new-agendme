@@ -24,7 +24,7 @@ export const TabItemCenter = styled.TouchableOpacity`
 `
 
 export const AvatarIcon = styled.Image`
-  width: 40px;
-  height: 40px;
-  border-radius: 20px;
+  width: 36px;
+  height: 36px;
+  border-radius: 18px;
 `

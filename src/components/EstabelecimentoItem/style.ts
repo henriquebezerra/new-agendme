@@ -11,7 +11,7 @@ export const Area = styled.TouchableOpacity`
 
 export const Avatar = styled.Image`
   width: 88px;
-  height: 88px;
+  height: 100px;
   border-radius: 20px;
 `;
 
@@ -28,7 +28,7 @@ export const UserEstabelecimento = styled.Text`
 export const Localidade = styled.Text`
   font-size: 12px;
   font-weight: bold;
-`;
+  `;
 
 export const VerPerfilButton = styled.View`
   width: 85px;
@@ -37,6 +37,7 @@ export const VerPerfilButton = styled.View`
   border-radius: 10px;
   justify-content: center;
   align-items: center;
+  margin-top: 5px;
 `;
 
 export const VerPerfilButtonText = styled.Text`

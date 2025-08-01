@@ -3,6 +3,7 @@ import FontAwesome6 from '@expo/vector-icons/FontAwesome6';
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 import Feather from '@expo/vector-icons/Feather';
 import FontAwesome from '@expo/vector-icons/FontAwesome';
+import AntDesign from '@expo/vector-icons/AntDesign';
 
 
 export const PersonIcon = ({size = 24, color = 'black'}) => {
@@ -39,4 +40,8 @@ export const UserIcon = ({size = 24, color = 'black'}) => {
 
 export const LocationIcon = ({size = 24, color = 'black'}) => {
   return <FontAwesome6 name="location-crosshairs" size={size} color={color} />
+}
+
+export const CloseIcon = ({size = 24, color = 'black'}) => {
+  return <AntDesign name="close" size={size} color={color} />
 }

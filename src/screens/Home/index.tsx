@@ -1,4 +1,4 @@
-import { LocationIcon, SearchIcon } from "@/constants/icons";
+import { LocationIcon, SearchIcon, CloseIcon } from "@/constants/icons";
 import { 
   Container, 
   Scroller, 
@@ -19,6 +19,7 @@ import { HomeActions } from "@/screens/Home/actions";
 import { Estabelecimento } from "@/model/estabelecimento.model";
 import EstabelecimentoItem from "@/components/EstabelecimentoItem";
 import { Alert } from "@/components/Alert";
+import { RefreshControl } from "react-native";
 
 type PreloadScreenProp = NativeStackNavigationProp<RootStackParamList>;
 
@@ -26,37 +27,45 @@ type PreloadScreenProp = NativeStackNavigationProp<RootStackParamList>;
 const Home = () => { 
 
   const navigation = useNavigation<PreloadScreenProp>();
-  const [estabelecimentoText, setLocationText ] = useState('');
+  const [estabelecimentoText, setEstabelecimentoText ] = useState('');
   const [loading, setLoading] = useState(false);
   const service = new HomeActions();
   const [estabelecimentos, setEstabelecimentos ] = useState<Estabelecimento[]>();
+  const [ refreshing, setRefreshing ] = useState(false);
 
   const handleLocationFinder = () => {
     setEstabelecimentos([]);
     setLoading(true);
-    service.carregarEstabelecimentos(estabelecimentoText).then((response:Estabelecimento[]) => {
+    loadEstabelecimentos(estabelecimentoText)
+  }
+
+  const onRefresh = async () => {
+    setRefreshing(true);
+    setEstabelecimentoText('');
+    loadEstabelecimentos();
+  }
+
+  const loadEstabelecimentos = (valueInput?:string) => {
+    service.carregarEstabelecimentos(valueInput).then((response:Estabelecimento[]) => {
       setEstabelecimentos(response);
     }).catch(error => {
-        Alert('Alerta', error.message, [{text: 'OK'}]);
-       }).finally(()=> {
-        setLoading(false);
+      Alert('Alerta', error.message, [{text: 'OK'}]);
+     }).finally(()=> {
+      setLoading(false);
+      setRefreshing(false);
     });
   }
 
   useEffect(() => {
       setLoading(true);
-      service.carregarEstabelecimentos().then((response:Estabelecimento[]) => {
-        setEstabelecimentos(response);
-      }).catch(error => {
-        Alert('Alerta', error.message, [{text: 'OK'}]);
-       }).finally(()=> {
-        setLoading(false);
-      });
+      loadEstabelecimentos();
   }, []);
 
   return (
     <Container>
-      <Scroller>
+      <Scroller refreshControl={
+        <RefreshControl refreshing={refreshing} onRefresh={onRefresh}/>
+      }>
         <HeaderArea>
           <HeaderTitle>Encontre um profissional.</HeaderTitle>
           <SearchButton onPress={() => {navigation.navigate('Search')}}>
@@ -69,13 +78,18 @@ const Home = () => {
             placeholder="O que está procurando?"
             placeholderTextColor="#FFFFFF"
             value={estabelecimentoText}
-            onChangeText={(location:string) => setLocationText(location)}
+            onChangeText={(estabelecimento:string) => setEstabelecimentoText(estabelecimento)}
             onSubmitEditing={handleLocationFinder}/>
 
-          <LocationFinder onPress={handleLocationFinder}>
-            <LocationIcon color="#FFFFFF"/>
-          </LocationFinder>
-
+          {estabelecimentoText ? 
+            <LocationFinder onPress={() => setEstabelecimentoText('')}>
+              <CloseIcon color="#FFFFFF"/>
+            </LocationFinder>
+          :
+            <LocationFinder onPress={handleLocationFinder}>
+              <LocationIcon color="#FFFFFF"/>
+            </LocationFinder>
+          }
         </SearchArea>
 
         {loading &&

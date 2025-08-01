@@ -7,7 +7,7 @@ import {
   VerPerfilButtonText,
   Localidade
 } from '@/components/EstabelecimentoItem/style';
-import Stars from '@/components/Stars'
+import { Stars } from '@/components/Stars'
 import {Estabelecimento} from "@/model/estabelecimento.model";
 
 interface EstabelecimentoPops {
