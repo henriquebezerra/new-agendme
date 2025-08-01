@@ -1,7 +1,6 @@
 import { LocationIcon, SearchIcon, CloseIcon } from "@/constants/icons";
 import { 
   Container, 
-  Scroller, 
   HeaderArea, 
   HeaderTitle,
   SearchButton,
@@ -9,7 +8,8 @@ import {
   SearchInput,
   LocationFinder,
   LoadingIcon,
-  EstabelecimentosArea
+  EstabelecimentosArea,
+  ContentContainer
 } from "./style";
 import { useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
@@ -19,7 +19,7 @@ import { HomeActions } from "@/screens/Home/actions";
 import { Estabelecimento } from "@/model/estabelecimento.model";
 import EstabelecimentoItem from "@/components/EstabelecimentoItem";
 import { Alert } from "@/components/Alert";
-import { RefreshControl } from "react-native";
+import { FlatList, Keyboard } from "react-native";
 
 type PreloadScreenProp = NativeStackNavigationProp<RootStackParamList>;
 
@@ -43,6 +43,7 @@ const Home = () => {
     setRefreshing(true);
     setEstabelecimentoText('');
     loadEstabelecimentos();
+    
   }
 
   const loadEstabelecimentos = (valueInput?:string) => {
@@ -63,9 +64,7 @@ const Home = () => {
 
   return (
     <Container>
-      <Scroller refreshControl={
-        <RefreshControl refreshing={refreshing} onRefresh={onRefresh}/>
-      }>
+      <ContentContainer>
         <HeaderArea>
           <HeaderTitle>Encontre um profissional.</HeaderTitle>
           <SearchButton onPress={() => {navigation.navigate('Search')}}>
@@ -82,7 +81,7 @@ const Home = () => {
             onSubmitEditing={handleLocationFinder}/>
 
           {estabelecimentoText ? 
-            <LocationFinder onPress={() => setEstabelecimentoText('')}>
+            <LocationFinder onPress={() => {setEstabelecimentoText(''); Keyboard.dismiss()}}>
               <CloseIcon color="#FFFFFF"/>
             </LocationFinder>
           :
@@ -95,18 +94,19 @@ const Home = () => {
         {loading &&
           <LoadingIcon size="large" color="#FFFFFF" />
         }
-        {
-          estabelecimentos && (
-            <EstabelecimentosArea>
-              {
-                estabelecimentos.map((item:Estabelecimento) => (
-                  <EstabelecimentoItem estabelecimento={item} key={item.id}/>
-                ))
-              }
-            </EstabelecimentosArea>
-          )
-        }
-      </Scroller>
+
+      <EstabelecimentosArea>
+        <FlatList
+          refreshing={refreshing}
+          onRefresh={onRefresh}
+          data={estabelecimentos}
+          keyExtractor={(item) => item.id.toString()}
+          renderItem={({ item }) => (
+            <EstabelecimentoItem estabelecimento={item} key={item.id}/>
+            )}
+          />
+        </EstabelecimentosArea>
+      </ContentContainer>
     </Container>
   );
 
