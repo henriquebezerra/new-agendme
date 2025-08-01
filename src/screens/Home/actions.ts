@@ -23,8 +23,6 @@ export class HomeActions {
         longitude,
       });
       
-      cidadeLocation = [];
-
       if (cidadeLocation && cidadeLocation.length > 0) {
         return {
           cidade:cidadeLocation[0].city, 
