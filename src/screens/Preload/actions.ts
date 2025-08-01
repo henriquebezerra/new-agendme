@@ -1,7 +1,7 @@
 import { Authenticated } from "@/model/authenticated.model";
 import { PreloadApi } from "@/services/Preload/api";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { AppAlert } from "../SignUp/style";
+import { Alert } from "@/components/Alert";
 
 export class PreloadAction {
 
@@ -29,7 +29,7 @@ export class PreloadAction {
               });
               
           } else {
-            AppAlert.alert('Alerta', 'Não foi possível gerar credencial',[{text: 'OK'}]);
+            Alert('Alerta', 'Não foi possível gerar credencial',[{text: 'OK'}]);
             throw null;
           }
         } else {

@@ -18,6 +18,7 @@ import { useEffect, useState } from "react";
 import { HomeActions } from "@/screens/Home/actions";
 import { Estabelecimento } from "@/model/estabelecimento.model";
 import EstabelecimentoItem from "@/components/EstabelecimentoItem";
+import { Alert } from "@/components/Alert";
 
 type PreloadScreenProp = NativeStackNavigationProp<RootStackParamList>;
 
@@ -39,9 +40,13 @@ const Home = () => {
   useEffect(() => {
     (async () => {
       setLoading(true);
-      const listaEstabelecimentos = await service.carregarEstabelecimentos();
-      setEstabelecimentos(listaEstabelecimentos);
-      setLoading(false);
+      service.carregarEstabelecimentos().then((response:Estabelecimento[]) => {
+        setEstabelecimentos(response);
+      }).catch(error => {
+        Alert('Alerta', error.message, [{text: 'OK'}]);
+       }).finally(()=> {
+        setLoading(false);
+      }) ;
     })();
   }, []);
 

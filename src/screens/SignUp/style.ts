@@ -47,5 +47,3 @@ export const AreaTecladoView = styled.KeyboardAvoidingView`
     flex: 1;
     align-items: center;
     justify-content: center;`;
-
-export const AppAlert = Alert;

@@ -7,8 +7,7 @@ import {
   CustomButtonText,
   SignMessageButton,
   SignMessageText,
-  SignMessageTextButton,
-  AppAlert
+  SignMessageTextButton
 } from "@/screens/SignIn/style";
 import { Animated } from "react-native";
 import { useState, useEffect, useContext } from "react";
@@ -23,6 +22,7 @@ import { Authenticated } from "@/model/authenticated.model";
 import { UserContext } from "@/contexts/UserContext";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { RootStackParamList } from "@/types/general-type";
+import { Alert } from "@/components/Alert";
 
 type PreloadScreenProp = NativeStackNavigationProp<RootStackParamList>;
 
@@ -73,9 +73,7 @@ const SignIn=() => {
         abrirTelaPrincipal();
     })
     .catch((error) => {
-      AppAlert.alert('Alerta', error.message, [
-        {text: 'OK'}
-      ]);
+      Alert('Alerta', error.message, [{text: 'OK'}]);
     })
   }
 
