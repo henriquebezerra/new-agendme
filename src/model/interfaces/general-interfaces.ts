@@ -4,6 +4,6 @@ export interface Validation {
 
 export interface DadosLocation {
   cidade: string;
-  uf: string;
-  subregiao: string;
+  uf?: string | null;
+  subregiao?: string | null;
 }

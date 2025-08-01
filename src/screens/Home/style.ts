@@ -29,7 +29,7 @@ export const SearchButton = styled.TouchableOpacity`
 export const LocationFinder = styled.TouchableOpacity`
 `;
 
-export const LocationArea = styled.View`
+export const SearchArea = styled.View`
   background-color: #4EADBE;
   height: 60px;
   border-radius: 30px;
@@ -40,7 +40,7 @@ export const LocationArea = styled.View`
   margin-top: 30px; 
 `;
 
-export const LocationInput = styled.TextInput`
+export const SearchInput = styled.TextInput`
   flex: 1;
   font-size : 16px;
   color: #FFFF;

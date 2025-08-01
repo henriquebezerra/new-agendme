@@ -1,6 +1,7 @@
 import { HomeAPI } from '@/services/Home/api';
 import * as Location from 'expo-location';
 import { DadosLocation, Validation } from '@/model/interfaces/general-interfaces';
+import { Estabelecimento } from '@/model/estabelecimento.model';
 
 export class HomeActions {
 
@@ -29,6 +30,7 @@ export class HomeActions {
           uf:cidadeLocation[0].region, 
           subregiao:cidadeLocation[0].subregion 
         }
+        
       } else {
         let error: Validation = { message: 'Não encontramos sua localização' };
         throw(error)
@@ -36,10 +38,15 @@ export class HomeActions {
     }
   }
 
-  public async carregarEstabelecimentos(){
+  public async carregarEstabelecimentos(estabelecimentoText?:string){
     try {
-      const { cidade, uf, subregiao } = await this.handleLocationFinder() as DadosLocation;
-      const response = await this.api.carregarEstabelecimentos({cidade, uf, subregiao});
+      let response:Estabelecimento[] = [];
+      if(estabelecimentoText){
+        response = await this.api.carregarEstabelecimentosNome(estabelecimentoText);
+      } else {
+        const { cidade, uf, subregiao } = await this.handleLocationFinder() as DadosLocation;
+        response = await this.api.carregarEstabelecimentos({cidade, uf, subregiao});
+      }
       return response;
     } catch (error) {
       throw error;      

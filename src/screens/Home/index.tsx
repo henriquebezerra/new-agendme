@@ -5,8 +5,8 @@ import {
   HeaderArea, 
   HeaderTitle,
   SearchButton,
-  LocationArea,
-  LocationInput,
+  SearchArea,
+  SearchInput,
   LocationFinder,
   LoadingIcon,
   EstabelecimentosArea
@@ -26,19 +26,24 @@ type PreloadScreenProp = NativeStackNavigationProp<RootStackParamList>;
 const Home = () => { 
 
   const navigation = useNavigation<PreloadScreenProp>();
-  const [locationText, setLocationText ] = useState('');
+  const [estabelecimentoText, setLocationText ] = useState('');
   const [loading, setLoading] = useState(false);
   const service = new HomeActions();
   const [estabelecimentos, setEstabelecimentos ] = useState<Estabelecimento[]>();
 
-  const handleLocationFinder = async () => {
+  const handleLocationFinder = () => {
+    setEstabelecimentos([]);
     setLoading(true);
-    await service.handleLocationFinder();
-    setLoading(false);
+    service.carregarEstabelecimentos(estabelecimentoText).then((response:Estabelecimento[]) => {
+      setEstabelecimentos(response);
+    }).catch(error => {
+        Alert('Alerta', error.message, [{text: 'OK'}]);
+       }).finally(()=> {
+        setLoading(false);
+    });
   }
 
   useEffect(() => {
-    (async () => {
       setLoading(true);
       service.carregarEstabelecimentos().then((response:Estabelecimento[]) => {
         setEstabelecimentos(response);
@@ -46,8 +51,7 @@ const Home = () => {
         Alert('Alerta', error.message, [{text: 'OK'}]);
        }).finally(()=> {
         setLoading(false);
-      }) ;
-    })();
+      });
   }, []);
 
   return (
@@ -60,18 +64,19 @@ const Home = () => {
           </SearchButton>
         </HeaderArea>
 
-        <LocationArea>
-          <LocationInput 
+        <SearchArea>
+          <SearchInput 
             placeholder="O que está procurando?"
             placeholderTextColor="#FFFFFF"
-            value={locationText}
-            onChangeText={(location:string) => setLocationText(location)}/>
+            value={estabelecimentoText}
+            onChangeText={(location:string) => setLocationText(location)}
+            onSubmitEditing={handleLocationFinder}/>
 
           <LocationFinder onPress={handleLocationFinder}>
             <LocationIcon color="#FFFFFF"/>
           </LocationFinder>
 
-        </LocationArea>
+        </SearchArea>
 
         {loading &&
           <LoadingIcon size="large" color="#FFFFFF" />
