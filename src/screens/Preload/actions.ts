@@ -2,7 +2,7 @@ import { Authenticated } from "@/model/authenticated.model";
 import { PreloadApi } from "@/services/Preload/api";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Alert } from "@/components/Alert";
-import { API_BASE_URL } from "@env";
+import { API_BASE_URL, ENDPOINT_BASE_URL } from "@env";
 
 export class PreloadAction {
 
@@ -20,7 +20,7 @@ export class PreloadAction {
         if(token){
           let authenticated:Authenticated = await this.api.refreshToken(token);
           if(authenticated.token){
-            authenticated.avatar = `${API_BASE_URL}${authenticated.avatar}`;
+            authenticated.avatar = `${API_BASE_URL}${ENDPOINT_BASE_URL}${authenticated.avatar}`;
             AsyncStorage.setItem('token', authenticated.token);
             this.userDispatch({
                 type: 'setUser',

@@ -22,7 +22,7 @@ import { UserContext } from "@/contexts/UserContext";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { PreloadScreenProp } from "@/types/general-type";
 import { Alert } from "@/components/Alert";
-import { API_BASE_URL } from "@env";
+import { API_BASE_URL, ENDPOINT_BASE_URL } from "@env";
 
 
 const SignIn=() => {
@@ -61,7 +61,7 @@ const SignIn=() => {
     service.login(emailField, passwordField)
       .then(async (data:Authenticated) => {
         await AsyncStorage.setItem('token', data.token || '' );
-        data.avatar = `${API_BASE_URL}${data.avatar}`;
+        data.avatar = `${API_BASE_URL}${ENDPOINT_BASE_URL}${data.avatar}`;
         userDispatch({
           type: 'setUser',
           payload:{

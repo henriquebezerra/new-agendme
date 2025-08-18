@@ -7,6 +7,7 @@ export class Estabelecimento {
   endereco: Endereco;
   star?: number;
   avatar?: string;
+  uuidStorage?: string;
 
   constructor(id: number, nome:string, endereco:Endereco){
     this.id = id;

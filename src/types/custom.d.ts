@@ -5,4 +5,5 @@ declare module '*.png' {
 
 declare module '@env' {
   export const API_BASE_URL: string;
+  export const ENDPOINT_BASE_URL: string;
 }

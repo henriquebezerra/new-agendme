@@ -64,7 +64,7 @@ apiClient.interceptors.response.use(
     (error) => {
         if (axios.isAxiosError(error) && error.response) {
             const status = error.response.status;
-            let retorno: Validation = { message: '' };
+            let retorno: Validation = { message: 'Ocorreu um erro' };
             
             if(status === 401){
               return handleAuthorizationError(error);
