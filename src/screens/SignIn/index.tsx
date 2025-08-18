@@ -15,16 +15,14 @@ import SignInput from '@components/SignInput';
 import { Platform } from 'react-native';
 import ImageLogo from "@/components/ImageLogo";
 import { useNavigation } from '@react-navigation/native';
-import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { EmailIcon, PasswordIcon } from "@/constants/icons";
 import { SignInAction } from "./actions";
 import { Authenticated } from "@/model/authenticated.model";
 import { UserContext } from "@/contexts/UserContext";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { RootStackParamList } from "@/types/general-type";
+import { PreloadScreenProp } from "@/types/general-type";
 import { Alert } from "@/components/Alert";
-
-type PreloadScreenProp = NativeStackNavigationProp<RootStackParamList>;
+import { API_BASE_URL } from "@env";
 
 
 const SignIn=() => {
@@ -63,7 +61,7 @@ const SignIn=() => {
     service.login(emailField, passwordField)
       .then(async (data:Authenticated) => {
         await AsyncStorage.setItem('token', data.token || '' );
-        data.avatar = 'http://img.freepik.com/foto-gratis/foto-primer-plano-amable-hombre-rubio-sonriendo-mientras-posa_132075-8195.jpg?t=st=1652130495~exp=1652131095~hmac=cd779c32e4a3c58f3d1a5a83655414a2a27a75ada4106986f05f6d42f8a813e7&w=360';
+        data.avatar = `${API_BASE_URL}${data.avatar}`;
         userDispatch({
           type: 'setUser',
           payload:{

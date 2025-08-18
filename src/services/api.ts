@@ -2,12 +2,10 @@ import axios, { AxiosError, type AxiosInstance } from 'axios';
 import { API_BASE_URL  } from '@env';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Validation } from '@/model/interfaces/general-interfaces';
-import { useContext } from 'react';
-import { UserContext } from '@/contexts/UserContext';
 import { Authenticated } from '@/model/authenticated.model';
 
 
-const errosCodes = [400];
+const errosCodes = [400, 404];
 
 const publicPaths = ['/auth/login', '/auth/refresh', '/usuario/perfis'];
 interface DefaultErrorMessages {

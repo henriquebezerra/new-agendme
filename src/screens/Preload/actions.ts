@@ -2,6 +2,7 @@ import { Authenticated } from "@/model/authenticated.model";
 import { PreloadApi } from "@/services/Preload/api";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Alert } from "@/components/Alert";
+import { API_BASE_URL } from "@env";
 
 export class PreloadAction {
 
@@ -19,7 +20,7 @@ export class PreloadAction {
         if(token){
           let authenticated:Authenticated = await this.api.refreshToken(token);
           if(authenticated.token){
-            authenticated.avatar = 'http://img.freepik.com/foto-gratis/foto-primer-plano-amable-hombre-rubio-sonriendo-mientras-posa_132075-8195.jpg?t=st=1652130495~exp=1652131095~hmac=cd779c32e4a3c58f3d1a5a83655414a2a27a75ada4106986f05f6d42f8a813e7&w=360';
+            authenticated.avatar = `${API_BASE_URL}${authenticated.avatar}`;
             AsyncStorage.setItem('token', authenticated.token);
             this.userDispatch({
                 type: 'setUser',

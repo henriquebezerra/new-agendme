@@ -1,13 +1,11 @@
 import { Container, LoadingIcon } from "@/screens/Preload/style";
 import { useContext, useEffect } from "react";
 import { useNavigation } from "@react-navigation/native";
-import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import ImageLogo from "@/components/ImageLogo";
 import { PreloadAction } from "./actions";
 import { UserContext } from "@/contexts/UserContext";
-import { RootStackParamList } from "@/types/general-type";
+import { PreloadScreenProp } from "@/types/general-type";
 
-type PreloadScreenProp = NativeStackNavigationProp<RootStackParamList>;
 
 const Preload = () => {
 

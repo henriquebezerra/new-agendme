@@ -9,20 +9,16 @@ import {
   SignMessageButton,
   SignMessageText,
   SignMessageTextButton,
-  AppAlert
 } from '@/screens/SignUp/style';
 import { PersonIcon, EmailIcon, PasswordIcon} from '@/constants/icons';
 import { Animated, Platform } from 'react-native';
-import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { useNavigation } from '@react-navigation/native';
 import { SignUpAction } from '@/screens/SignUp/actions';
 import { Authenticated } from '@/model/authenticated.model';
 import DropdownPicker from '@/components/DropdownPicker';
-import { OptionsType, RootStackParamList } from '@/types/general-type';
+import { OptionsType, PreloadScreenProp } from '@/types/general-type';
 import { UserContext } from '@/contexts/UserContext';
 import { Usuario } from '@/model/usuario.model';
-
-type PreloadScreenProp = NativeStackNavigationProp<RootStackParamList>;
 
 const SignUp = () => {
 

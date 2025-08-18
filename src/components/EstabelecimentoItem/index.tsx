@@ -8,16 +8,19 @@ import {
   Localidade
 } from '@/components/EstabelecimentoItem/style';
 import { Stars } from '@/components/Stars'
-import {Estabelecimento} from "@/model/estabelecimento.model";
-
-interface EstabelecimentoPops {
-  estabelecimento:Estabelecimento
-}
-
+import {EstabelecimentoPops} from "@/model/interfaces/general-interfaces"
+import { useNavigation } from '@react-navigation/native';
+import { PreloadScreenProp } from '@/types/general-type';
 
 const EstabelecimentoItem: React.FC<EstabelecimentoPops> = ({estabelecimento, ...pros}) => {
+const navigation = useNavigation<PreloadScreenProp>();
+
+  const handlePress = () => {
+    navigation.navigate('Profile', { estabelecimento } as any);
+  };
+
   return (
-    <Area>
+    <Area onPress={handlePress}>
       <Avatar source = {{uri: estabelecimento.avatar}} />
       <InfoArea>
         <UserEstabelecimento>{estabelecimento.nome}</UserEstabelecimento>
@@ -29,7 +32,6 @@ const EstabelecimentoItem: React.FC<EstabelecimentoPops> = ({estabelecimento, ..
       </InfoArea>
     </Area>
   );
-
 }; 
 
 export default EstabelecimentoItem;
