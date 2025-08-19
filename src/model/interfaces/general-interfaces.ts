@@ -13,3 +13,9 @@ export interface DadosLocation {
 export interface EstabelecimentoPops {
   estabelecimento:Estabelecimento;
 }
+
+export interface FileObject {
+  objectKey?: string;
+  size?:number;
+  uri?: string;
+}
