@@ -1,4 +1,4 @@
-import { Container, LoadingIcon } from "@/screens/Preload/style";
+import { Container, AgendMeLabel, AgendMeLabelArea, LogoArea } from "@/screens/Preload/style";
 import { useContext, useEffect } from "react";
 import { useNavigation } from "@react-navigation/native";
 import ImageLogo from "@/components/ImageLogo";
@@ -18,13 +18,17 @@ const Preload = () => {
       navigation.reset({routes:[{name:'UserNavigator'}]});
     }).catch(error => {
       navigation.reset({routes:[{name:'SignIn'}]});
-    }) ;
+    });
   }, []);
 
   return (
     <Container>
-      <ImageLogo width={250} height={250} />
-      <LoadingIcon size="large" color="#FFFFFF" />
+      <AgendMeLabelArea>
+        <AgendMeLabel>AgendMe</AgendMeLabel>
+      </AgendMeLabelArea>
+      <LogoArea>
+        <ImageLogo width={25} height={25} />
+      </LogoArea>
     </Container>
   );
 

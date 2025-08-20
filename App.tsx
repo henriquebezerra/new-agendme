@@ -1,12 +1,15 @@
 import UserContextProvider from '@contexts/UserContext';
 import AppNavigator from '@navigation/AppNavigator';
+import { Poppins_400Regular } from '@expo-google-fonts/poppins';
+import { useFonts } from 'expo-font';
 
 export default function App() {
+  const [fontsLoaded] = useFonts({
+    Poppins_400Regular,
+  });
+
   return (
-    // <View style={styles.container}>
-    //   <Text>Open up App.tsx to start working on your app!</Text>
-    //   <StatusBar style="auto" />
-    // </View>
+
 
     <UserContextProvider>
       <AppNavigator />
@@ -14,11 +17,3 @@ export default function App() {
   );
 }
 
-// const styles = StyleSheet.create({
-//   container: {
-//     flex: 1,
-//     backgroundColor: '#fff',
-//     alignItems: 'center',
-//     justifyContent: 'center',
-//   },
-// });
