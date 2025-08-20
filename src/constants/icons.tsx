@@ -45,3 +45,11 @@ export const LocationIcon = ({size = 24, color = 'black'}) => {
 export const CloseIcon = ({size = 24, color = 'black'}) => {
   return <AntDesign name="close" size={size} color={color} />
 }
+
+export const BackIcon = ({size = 24, color = 'black'}) => {
+  return <AntDesign name="left" size={size} color={color} />
+}
+
+export const UserFeatherIcon = ({size = 24, color = 'black'}) => {
+  return <Feather name="user" size={size} color={color} />
+}
