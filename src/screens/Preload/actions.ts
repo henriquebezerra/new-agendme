@@ -20,7 +20,8 @@ export class PreloadAction {
         if(token){
           let authenticated:Authenticated = await this.api.refreshToken(token);
           if(authenticated.token){
-            authenticated.avatar = `${API_BASE_URL}${ENDPOINT_BASE_URL}${authenticated.avatar}`;
+            if(authenticated.avatar)
+              authenticated.avatar = `${API_BASE_URL}${ENDPOINT_BASE_URL}${authenticated.avatar}`;
             AsyncStorage.setItem('token', authenticated.token);
             this.userDispatch({
                 type: 'setUser',

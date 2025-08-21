@@ -8,7 +8,8 @@ export const FakeSwiper = styled.View`
   background-color: #63C2D1;
   justify-content: center;
   align-items: center;
-  height: 245px;
+  height: 155px;
+  padding-bottom: 30px;
 `;
 
 export const SwipeDot = styled.View`
@@ -27,11 +28,11 @@ export const SwipeDotActive = styled.View`
   margin: 3px;
 `;
 
-export const PageBody = styled.View<{ fakeSwiperHeight ?: number }>`
+export const PageBody = styled.View<{ pageBodyHeight ?: number }>`
   background-color: #FFFFFF;
   border-top-left-radius: 50px;
   margin-top: -50px;
-  min-height: 560px;
+  min-height: ${(props: { pageBodyHeight?: number }) => props.pageBodyHeight ? props.pageBodyHeight : 0}px;
 `;
 
 export const UserInfoArea = styled.View`

@@ -22,8 +22,16 @@ export const HomeIcon = ({size = 24, color = 'black'}) => {
   return <Feather name="home" size={size} color={color} />
 }
 
+export const HomeIconFull = ({size = 24, color = 'black'}) => {
+  return <Entypo name="home" size={size} color={color} />
+}
+
 export const SearchIcon = ({size = 24, color = 'black'}) => {
   return <Feather name="search" size={size} color={color} />
+}
+
+export const SearchIconFull = ({size = 24, color = 'black'}) => {
+  return <FontAwesome name="search" size={size} color={color} />
 }
 
 export const AppointmentIcon = ({size = 24, color = 'black'}) => {
@@ -32,6 +40,10 @@ export const AppointmentIcon = ({size = 24, color = 'black'}) => {
 
 export const FavoriteIcon = ({size = 24, color = 'black'}) => {
   return <MaterialIcons name="favorite-border" size={size} color={color} />
+}
+
+export const FavoriteIconFull = ({size = 24, color = 'black'}) => {
+  return <MaterialIcons name="favorite" size={size} color={color} />
 }
 
 export const UserIcon = ({size = 24, color = 'black'}) => {

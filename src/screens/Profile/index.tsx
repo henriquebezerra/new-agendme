@@ -66,11 +66,11 @@ const Profile = () => {
             </SwipeItem>
           )) : (
             <FakeSwiper>
-              <UserFeatherIcon size={100} color='#FFFFFF'/>
+              <UserFeatherIcon size={75} color='#FFFFFF'/>
             </FakeSwiper>
           )}
         </Swiper>
-        <PageBody>
+        <PageBody pageBodyHeight={fileSwiper.length ? 560 : 650}>
           <UserInfoArea>
             <UserAvatar source={{ uri: `${API_BASE_URL}${ENDPOINT_BASE_URL}${estabelecimento.uuidStorage}/avatar/${estabelecimento.avatar}` }} />
             <UserInfo>
