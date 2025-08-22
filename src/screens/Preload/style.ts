@@ -1,18 +1,18 @@
 import styled from "styled-components/native";
+import { Animated, StyleSheet } from 'react-native';
 
 export const Container = styled.SafeAreaView`
   background-color: #63C2D1;
   flex: 1;
   align-items: center;`;
 
-export const AgendMeLabel = styled.Text`
+export const AgendMeLabel = Animated.createAnimatedComponent(styled.Text`
   color: #6c6e6cff;
-  font-size: 50px;
   text-align: center;
   font-family: 'Barrio_400Regular';
   width: 100%;
   height: 100px;
-`;
+`);
 
 export const AgendMeLabelArea = styled.View`
   justify-content: flex-end;
@@ -29,3 +29,10 @@ export const LogoArea = styled.View`
   position: absolute;
   padding-bottom: 23px;
 `;
+
+export const styles = StyleSheet.create({
+  agendMeLabel: {
+    fontSize: 50,
+    fontWeight: 'bold',
+  },
+});
