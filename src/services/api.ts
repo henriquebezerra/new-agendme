@@ -66,7 +66,7 @@ apiClient.interceptors.response.use(
             const status = error.response.status;
             let retorno: Validation = { message: 'Ocorreu um erro' };
             
-            if(status === 401){
+            if(status === 401 && error.config?.url !== '/auth/login'){
               return handleAuthorizationError(error);
             }
         

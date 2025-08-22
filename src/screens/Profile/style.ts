@@ -99,3 +99,12 @@ export const BackButton = styled.TouchableOpacity`
   left: 10px;
   z-index: 9;
 `;
+
+export const LoadingIcon = styled.ActivityIndicator`
+  margin-top: 50px;
+`;
+
+export const ServicesTitle = styled.Text`
+  color: #63C2D1;
+  font-size: 18px;
+`;

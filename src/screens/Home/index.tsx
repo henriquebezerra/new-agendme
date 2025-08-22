@@ -64,7 +64,7 @@ const Home = () => {
         <HeaderArea>
           <HeaderTitle>Encontre um profissional.</HeaderTitle>
           <SearchButton onPress={() => {navigation.navigate('Search')}}>
-            <SearchIcon />
+            <SearchIcon color="#FFFFFF"/>
           </SearchButton>
         </HeaderArea>
 

@@ -13,7 +13,9 @@ import {
   UserInfoName,
   UserFavButton,
   BackButton,
-  FakeSwiper
+  FakeSwiper,
+  LoadingIcon,
+  ServicesTitle
 } from '@/screens/Profile/style';
 import { Container } from "./style";
 import { useNavigation, useRoute } from "@react-navigation/native";
@@ -81,7 +83,11 @@ const Profile = () => {
               <FavoriteIcon size={24} color='#999999'/>
             </UserFavButton>
           </UserInfoArea>
+            {
+              loading && <LoadingIcon size="large" color="#999999" />
+            }
           <ServiceArea>
+            <ServicesTitle>Lista de serviços</ServicesTitle>
 
           </ServiceArea>
           <TestimonialArea>
