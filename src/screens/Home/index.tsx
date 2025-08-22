@@ -18,7 +18,8 @@ import { HomeActions } from "@/screens/Home/actions";
 import { Estabelecimento } from "@/model/estabelecimento.model";
 import EstabelecimentoItem from "@/components/EstabelecimentoItem";
 import { Alert } from "@/components/Alert";
-import { FlatList, Keyboard } from "react-native";
+import { FlatList, Keyboard, Text } from "react-native";
+import EmptyResult from "@/components/EmptyResult";
 
 
 const Home = () => { 
@@ -98,8 +99,11 @@ const Home = () => {
           keyExtractor={(item) => item.id.toString()}
           renderItem={({ item }) => (
             <EstabelecimentoItem estabelecimento={item} key={item.id}/>
-            )}
+          )}
           />
+          {
+            (estabelecimentos?.length === 0 && !loading) && <EmptyResult />
+          }
         </EstabelecimentosArea>
       </ContentContainer>
     </Container>
