@@ -870,10 +870,10 @@
   resolved "https://registry.yarnpkg.com/@emotion/unitless/-/unitless-0.8.1.tgz#182b5a4704ef8ad91bde93f7a860a88fd92c79a3"
   integrity sha512-KOEGMu6dmJZtpadb476IsZBclKvILjopjUii3V+7MnXIQCYh8W3NgNcgwo21n9LXZX6EDIKvqfjYxXebDwxKmQ==
 
-"@expo-google-fonts/poppins@^0.4.0":
+"@expo-google-fonts/barrio@^0.4.0":
   version "0.4.0"
-  resolved "https://registry.yarnpkg.com/@expo-google-fonts/poppins/-/poppins-0.4.0.tgz#590a6bb1b9de751e2fb79af95fc52bbf35cf4d7f"
-  integrity sha512-mY+z56ai1p01EltWCPEDc2EZR+yq7qAMpgDa+SP16j3vwETOLG3pl+W74oUhZayHw0uYdQjTXkm4ZO4QvX1I7w==
+  resolved "https://registry.yarnpkg.com/@expo-google-fonts/barrio/-/barrio-0.4.0.tgz#3b40b9e081479b46854d7216eb43bb0b58b78109"
+  integrity sha512-v/Gght5LzD0i34yRX5O4Exs/IzHmMs/tUVr+HLeIqV7fwUex++esuN2Lpt5kUT+Ccrg+0iNS4PmpJMNjDx+b5A==
 
 "@expo/cli@0.24.20":
   version "0.24.20"

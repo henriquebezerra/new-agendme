@@ -1,16 +1,14 @@
 import UserContextProvider from '@contexts/UserContext';
 import AppNavigator from '@navigation/AppNavigator';
-import { Poppins_400Regular } from '@expo-google-fonts/poppins';
+import { Barrio_400Regular } from '@expo-google-fonts/barrio';
 import { useFonts } from 'expo-font';
 
 export default function App() {
   const [fontsLoaded] = useFonts({
-    Poppins_400Regular,
+    Barrio_400Regular,
   });
 
   return (
-
-
     <UserContextProvider>
       <AppNavigator />
     </UserContextProvider>
