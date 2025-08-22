@@ -15,7 +15,7 @@ import SignInput from '@components/SignInput';
 import { Platform } from 'react-native';
 import ImageLogo from "@/components/ImageLogo";
 import { useNavigation } from '@react-navigation/native';
-import { EmailIcon, PasswordIcon } from "@/constants/icons";
+import { AppointmentIcon, EmailIcon, PasswordIcon } from "@/constants/icons";
 import { SignInAction } from "./actions";
 import { Authenticated } from "@/model/authenticated.model";
 import { UserContext } from "@/contexts/UserContext";
@@ -80,7 +80,7 @@ const SignIn=() => {
       <AreaTecladoView 
         behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
         keyboardVerticalOffset={Platform.OS === 'ios' ? 40 : 0}>
-        <ImageLogo width={250} height={250} />
+        <AppointmentIcon size={250} color="#268596" />
         <Animated.View style={[AnimatedViewStyle.style, {
           transform: [{
             translateY: offset.y

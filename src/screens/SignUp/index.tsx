@@ -1,5 +1,4 @@
 import { useState, useEffect, useContext } from 'react';
-import ImageLogo from '@/components/ImageLogo';
 import SignInput from '@/components/SignInput';
 import {
   AnimatedViewStyle,
@@ -10,7 +9,7 @@ import {
   SignMessageText,
   SignMessageTextButton,
 } from '@/screens/SignUp/style';
-import { PersonIcon, EmailIcon, PasswordIcon} from '@/constants/icons';
+import { PersonIcon, EmailIcon, PasswordIcon, AppointmentIcon} from '@/constants/icons';
 import { Animated, Platform } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { SignUpAction } from '@/screens/SignUp/actions';
@@ -74,7 +73,7 @@ const SignUp = () => {
       <AreaTecladoView 
         behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
         keyboardVerticalOffset={Platform.OS === 'ios' ? 40 : 0}>
-        <ImageLogo width={200} height={200} />
+        <AppointmentIcon size={200} color="#268596" />
         <Animated.View style={[AnimatedViewStyle.style, {
           transform:[{
             translateY:offset.y
