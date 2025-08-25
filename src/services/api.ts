@@ -7,7 +7,7 @@ import { Authenticated } from '@/model/authenticated.model';
 
 const errosCodes = [400, 404];
 
-const publicPaths = ['/auth/login', '/auth/refresh', '/usuario/perfis'];
+const publicPaths = ['/auth/login', '/auth/refresh', '/usuario/perfis', '/usuario'];
 interface DefaultErrorMessages {
   [key : string]: string
 }

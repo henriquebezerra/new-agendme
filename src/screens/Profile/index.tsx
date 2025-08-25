@@ -45,9 +45,19 @@ const Profile = () => {
     }
   }
 
+  const buscarServicos = () => {
+    setLoading(true);
+    service.listServicosByEstabelecimentoId(estabelecimento.id)
+      .then((servicos) => {
+        console.log(servicos);
+      })
+      .finally(() => setLoading(false));
+  }
+
 
   useEffect(() => {
     fileObjectsSwiper();
+    buscarServicos();
   }, []);
 
 
