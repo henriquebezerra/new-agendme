@@ -65,3 +65,7 @@ export const BackIcon = ({size = 24, color = 'black'}) => {
 export const UserFeatherIcon = ({size = 24, color = 'black'}) => {
   return <Feather name="user" size={size} color={color} />
 }
+
+export const StoreEmptyIcon = ({size = 24, color = 'black'}) => {
+  return <FontAwesome6 name="store-slash" size={size} color={color} />
+}

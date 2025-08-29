@@ -13,9 +13,21 @@ export interface DadosLocation {
 export interface EstabelecimentoPops {
   estabelecimento:Estabelecimento;
 }
-
 export interface FileObject {
   objectKey?: string;
   size?:number;
   uri?: string;
+}
+
+export interface ServiceItemProps {
+  title: string;
+  value: number;
+}
+
+export interface EmptyResultProps {
+  message?: string;
+  subMessage?: string;
+  iconColor?: string;
+  textColor?: string;
+  searchIcon?: React.ReactNode;
 }

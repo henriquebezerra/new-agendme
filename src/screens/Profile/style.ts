@@ -41,6 +41,7 @@ export const UserInfoArea = styled.View`
 `;
 
 export const ServiceArea = styled.View`
+  margin-top: 20px;
  
 `;
 export const TestimonialArea = styled.View`
@@ -105,6 +106,9 @@ export const LoadingIcon = styled.ActivityIndicator`
 `;
 
 export const ServicesTitle = styled.Text`
-  color: #63C2D1;
+  color: #268596;
   font-size: 18px;
+  font-weight: bold;
+  margin-left: 30px;
+  margin-bottom: 20px;
 `;

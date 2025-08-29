@@ -24,9 +24,13 @@ import { Estabelecimento } from "@/model/estabelecimento.model";
 import { useEffect, useState } from 'react';
 import { FileObject } from '@/model/interfaces/general-interfaces';
 import { ProfileAction } from '@/screens/Profile/actions';
-import { FavoriteIcon, BackIcon, UserFeatherIcon } from '@/constants/icons';
+import { FavoriteIcon, BackIcon, UserFeatherIcon, StoreEmptyIcon } from '@/constants/icons';
 import { API_BASE_URL, ENDPOINT_BASE_URL } from '@env'
 import { Stars } from '@/components/Stars';
+import { Servico } from '@/model/servico.model';
+import ServiceItem from '@/components/ServiceItem';
+import { FlatList } from 'react-native';
+import EmptyResult from '@/components/EmptyResult';
 
 const Profile = () => {
   const navigation = useNavigation<PreloadScreenProp>();
@@ -34,28 +38,37 @@ const Profile = () => {
   const { estabelecimento } = route.params as { estabelecimento: Estabelecimento };
   const [fileSwiper, setFileSwiper] = useState<FileObject[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
+  const [servicos, setServicos] = useState<Servico[]>([]);
+  const [refreshing, setRefreshing] = useState<boolean>(false);
   const service = new ProfileAction();
 
   const fileObjectsSwiper = () => {
     if(estabelecimento && estabelecimento.uuidStorage) {
-      setLoading(true);
-      service.listUriForSwiper(estabelecimento.uuidStorage)
-        .then(setFileSwiper)
-        .finally(() => setLoading(false));
+      service.listUriForSwiper(estabelecimento.uuidStorage).then(setFileSwiper);
     }
   }
 
   const buscarServicos = () => {
-    setLoading(true);
     service.listServicosByEstabelecimentoId(estabelecimento.id)
-      .then((servicos) => {
-        console.log(servicos);
-      })
-      .finally(() => setLoading(false));
+    .then((servicos) => {
+      setServicos(servicos);
+    })
+    .finally(() => noRefresh());
   }
 
+  const onRefresh = () => {
+    setRefreshing(true);
+    buscarServicos();
+  }
 
+  const noRefresh = () => {
+    setRefreshing(false);
+    setLoading(false)
+  }
+  
+  
   useEffect(() => {
+    setLoading(true);
     fileObjectsSwiper();
     buscarServicos();
   }, []);
@@ -96,10 +109,31 @@ const Profile = () => {
             {
               loading && <LoadingIcon size="large" color="#999999" />
             }
-          <ServiceArea>
-            <ServicesTitle>Lista de serviços</ServicesTitle>
-
-          </ServiceArea>
+            {
+              servicos.length > 0 ? (
+                <ServiceArea>
+                  <ServicesTitle>Lista de serviços</ServicesTitle>
+                    <FlatList
+                      refreshing={refreshing}
+                      onRefresh={onRefresh}
+                      data={servicos}
+                      keyExtractor={(item) => item.id.toString()}
+                      renderItem={({ item, index }) => (
+                        <ServiceItem key={index} title={item.titulo} value={item.valor} />
+                      )}
+                     />
+                </ServiceArea>
+              ) :  (
+                !loading && (
+                  <EmptyResult 
+                    message='Nenhum serviço cadastrado'
+                    subMessage='O atendente ainda não cadastrou seus serviços'
+                    textColor='#63C2D1' 
+                    iconColor='#63C2D1'
+                    searchIcon={<StoreEmptyIcon size={100} color='#63C2D1' />}
+                  />
+                ))
+            }
           <TestimonialArea>
 
           </TestimonialArea>
