@@ -1,7 +1,8 @@
 import styled from "styled-components/native";
 import { Animated, StyleSheet } from 'react-native';
+import { SafeAreaView } from "react-native-safe-area-context";
 
-export const Container = styled.SafeAreaView`
+export const Container = styled(SafeAreaView)`
   background-color: #63C2D1;
   flex: 1;
   align-items: center;`;
