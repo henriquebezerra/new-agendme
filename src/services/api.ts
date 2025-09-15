@@ -62,29 +62,29 @@ apiClient.interceptors.request.use(
 apiClient.interceptors.response.use(
     (response) => response,
     (error) => {
+        let retorno: Validation = { message: 'Ocorreu um erro' };
+
         if (axios.isAxiosError(error) && error.response) {
             const status = error.response.status;
-            let retorno: Validation = { message: 'Ocorreu um erro' };
-            
-            if(status === 401 && error.config?.url !== '/auth/login'){
-              return handleAuthorizationError(error);
+
+            if (status === 401 && error.config?.url !== '/auth/login') {
+                return handleAuthorizationError(error);
             }
-        
+
             if (errosCodes.includes(status) && error.response.data && error.response.data.violations) {
-                retorno.message  = error.response.data.violations[0].message;
+                retorno.message = error.response.data.violations[0].message;
             } else {
                 retorno.message = error.response.data.message;
             }
-        
-            throw retorno;
-          } else {
-            if(error.code && defaultMessages[error.code]){
-              alert(defaultMessages[error.code]);
+        } else {
+            if (error.code && defaultMessages[error.code]) {
+                retorno.message = defaultMessages[error.code];
             } else {
-              alert('Erro na requisição');
+                retorno.message = 'Erro na requisição';
             }
-            throw error;
-          }
+        }
+
+        throw retorno;
     }
 );
 
