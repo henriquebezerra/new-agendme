@@ -13,7 +13,6 @@ import { Animated } from "react-native";
 import { useState, useEffect, useContext } from "react";
 import SignInput from '@components/SignInput';
 import { Platform } from 'react-native';
-import ImageLogo from "@/components/ImageLogo";
 import { useNavigation } from '@react-navigation/native';
 import { AppointmentIcon, EmailIcon, PasswordIcon } from "@/constants/icons";
 import { SignInAction } from "./actions";
