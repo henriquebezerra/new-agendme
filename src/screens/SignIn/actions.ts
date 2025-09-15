@@ -6,7 +6,7 @@ export class SignInAction {
   private api: SignInApi;
 
   constructor(){
-    this.api = new SignInApi();
+    this.api = SignInApi.getInstance();
   }
 
   public login(email:string, password:string): Promise<Authenticated>{

@@ -10,7 +10,7 @@ export class PreloadAction {
   private api: PreloadApi;
 
   constructor(userDispatch?: Function){
-    this.api = new PreloadApi();
+    this.api = PreloadApi.getInstance();
     this.userDispatch = userDispatch;
   }
 

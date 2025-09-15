@@ -8,7 +8,7 @@ export class HomeActions {
   private api: HomeAPI;
 
   constructor(){ 
-    this.api = new HomeAPI();
+    this.api = HomeAPI.getInstance();
   }
 
   public async handleLocationFinder(){

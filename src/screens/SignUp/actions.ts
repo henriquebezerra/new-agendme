@@ -10,7 +10,7 @@ export class SignUpAction {
   private api: SignUpApi;
 
   constructor(){
-    this.api = new SignUpApi();
+    this.api = SignUpApi.getInstance();
   }
 
   public cadastrar(usuario:Usuario): Promise<Authenticated> {
