@@ -28,7 +28,7 @@ export class PreloadAction {
                   payload:{
                     user: authenticated
                   }
-                });
+              });
           } else {
             Alert('Alerta', 'Não foi possível gerar credencial',[{text: 'OK'}]);
             throw null;

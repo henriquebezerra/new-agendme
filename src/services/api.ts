@@ -1,8 +1,8 @@
-import axios, { AxiosError, type AxiosInstance } from 'axios';
-import { API_BASE_URL  } from '@env';
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import { Validation } from '@/model/interfaces/general-interfaces';
 import { Authenticated } from '@/model/authenticated.model';
+import { Validation } from '@/model/interfaces/general-interfaces';
+import { API_BASE_URL } from '@env';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import axios, { AxiosError, type AxiosInstance } from 'axios';
 
 
 const errosCodes = [400, 404];
@@ -26,6 +26,7 @@ const apiClient: AxiosInstance = axios.create({
 const handleAuthorizationError = async(error: AxiosError) => {
   const originalRequest = error.config as any;
   const token = await AsyncStorage.getItem('token');
+
   try {
     if (token) {
       const response = await axios.post('/auth/refresh', token, {
