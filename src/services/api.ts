@@ -46,11 +46,11 @@ const handleAuthorizationError = async(error: AxiosError) => {
 
 apiClient.interceptors.request.use(
     async (config) => {
-        const token = await AsyncStorage.getItem('token');
-        if (token && !publicPaths.includes(config.url || '')) {
-          config.headers.Authorization = `Bearer ${token}`;
-        }
-        return config;
+      const token = await AsyncStorage.getItem('token');
+      if (token && !publicPaths.includes(config.url || '')) {
+        config.headers.Authorization = `Bearer ${token}`;
+      }
+      return config;
     },
     (error) => {
         return Promise.reject(error);

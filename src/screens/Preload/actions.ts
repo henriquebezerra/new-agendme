@@ -22,14 +22,13 @@ export class PreloadAction {
           if(authenticated.token){
             if(authenticated.avatar)
               authenticated.avatar = `${API_BASE_URL}${ENDPOINT_BASE_URL}${authenticated.avatar}`;
-            AsyncStorage.setItem('token', authenticated.token);
-            this.userDispatch({
-                type: 'setUser',
-                payload:{
-                  user: authenticated
-                }
-              });
-              
+              AsyncStorage.setItem('token', authenticated.token);
+              this.userDispatch({
+                  type: 'setUser',
+                  payload:{
+                    user: authenticated
+                  }
+                });
           } else {
             Alert('Alerta', 'Não foi possível gerar credencial',[{text: 'OK'}]);
             throw null;
