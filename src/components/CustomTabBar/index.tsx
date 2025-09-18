@@ -54,7 +54,7 @@ const CustomTabBar = ({ navigation }: BottomTabBarProps) => {
         <TabItem onPress={() => goTo('Favorites')}>
           {selectedBar === 'Favorites' ? <FavoriteIconFull size={30} /> : <FavoriteIcon size={30} />}
         </TabItem>
-        <TabItem onPress={() => goTo('Profile')}>
+        <TabItem onPress={() => goTo('UserProfile')}>
           { renderAvatarIcon() }
         </TabItem>
       </TabArea>

@@ -5,6 +5,7 @@ import ProviderProfile from "@/screens/ProviderProfile";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import UserNavigator from "./UserNavigator";
+import UserProfile from "@/screens/UserProfile";
 
 
 const Stack = createNativeStackNavigator();
@@ -23,6 +24,7 @@ export default function AppNavigator() {
         <Stack.Screen name="SignUp" component={SignUp}/>
         <Stack.Screen name="UserNavigator" component={UserNavigator}/>
         <Stack.Screen name="ProviderProfile" component={ProviderProfile}/>
+        <Stack.Screen name="UserProfile" component={UserProfile}/>
       </Stack.Navigator>
     </NavigationContainer>
   );

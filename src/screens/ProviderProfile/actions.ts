@@ -3,7 +3,7 @@ import { Servico } from "@/model/servico.model";
 import { ProfileApi } from "@/services/Profile/api";
 import { ServicoAPI } from "@/services/Servico/api";
 
-export class ProfileAction {
+export class ProviderProfileAction {
 
   private api: ProfileApi;
   private serviceApi: ServicoAPI;

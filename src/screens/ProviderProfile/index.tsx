@@ -23,7 +23,7 @@ import { PreloadScreenProp } from "@/types/general-type";
 import { Estabelecimento } from "@/model/estabelecimento.model";
 import { useEffect, useState } from 'react';
 import { FileObject } from '@/model/interfaces/general-interfaces';
-import { ProfileAction } from '@/screens/ProviderProfile/actions';
+import { ProviderProfileAction } from '@/screens/ProviderProfile/actions';
 import { FavoriteIcon, BackIcon, UserFeatherIcon, StoreEmptyIcon } from '@/constants/icons';
 import { API_BASE_URL, ENDPOINT_BASE_URL } from '@env'
 import { Stars } from '@/components/Stars';
@@ -40,7 +40,7 @@ const Profile = () => {
   const [loading, setLoading] = useState<boolean>(false);
   const [servicos, setServicos] = useState<Servico[]>([]);
   const [refreshing, setRefreshing] = useState<boolean>(false);
-  const service = new ProfileAction();
+  const service = new ProviderProfileAction();
 
   const fileObjectsSwiper = () => {
     if(estabelecimento && estabelecimento.uuidStorage) {
