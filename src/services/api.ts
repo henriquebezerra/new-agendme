@@ -8,6 +8,8 @@ import axios, { AxiosError, type AxiosInstance } from 'axios';
 const errosCodes = [400, 404];
 
 const publicPaths = ['/auth/login', '/auth/refresh', '/usuario/perfis', '/usuario'];
+const noHandlePaths = ['/auth/login', '/auth/logout'];
+
 interface DefaultErrorMessages {
   [key : string]: string
 }
@@ -68,7 +70,7 @@ apiClient.interceptors.response.use(
         if (axios.isAxiosError(error) && error.response) {
             const status = error.response.status;
 
-            if (status === 401 && error.config?.url !== '/auth/login') {
+            if (status === 401 && !noHandlePaths.includes(error.config?.url || '')) {
                 return handleAuthorizationError(error);
             }
 

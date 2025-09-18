@@ -13,6 +13,12 @@ export class SignInApi {
         });
     return response.data;
   }
+
+  public async logout(): Promise<void> {
+    const response = await apiClient.post('/auth/logout');
+    return response.data;
+  }
+  
   public static getInstance(): SignInApi {
     if(!SignInApi.instance){
       SignInApi.instance = new SignInApi();
