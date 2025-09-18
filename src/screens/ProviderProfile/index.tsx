@@ -16,14 +16,14 @@ import {
   FakeSwiper,
   LoadingIcon,
   ServicesTitle
-} from '@/screens/Profile/style';
+} from '@/screens/ProviderProfile/style';
 import { Container } from "./style";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import { PreloadScreenProp } from "@/types/general-type";
 import { Estabelecimento } from "@/model/estabelecimento.model";
 import { useEffect, useState } from 'react';
 import { FileObject } from '@/model/interfaces/general-interfaces';
-import { ProfileAction } from '@/screens/Profile/actions';
+import { ProfileAction } from '@/screens/ProviderProfile/actions';
 import { FavoriteIcon, BackIcon, UserFeatherIcon, StoreEmptyIcon } from '@/constants/icons';
 import { API_BASE_URL, ENDPOINT_BASE_URL } from '@env'
 import { Stars } from '@/components/Stars';

@@ -17,7 +17,7 @@ const EstabelecimentoItem: React.FC<EstabelecimentoPops> = ({estabelecimento, ..
 const navigation = useNavigation<PreloadScreenProp>();
 
   const handlePress = () => {
-    navigation.navigate('Profile', { estabelecimento } as any);
+    navigation.navigate('ProviderProfile', { estabelecimento } as any);
   };
 
   return (
