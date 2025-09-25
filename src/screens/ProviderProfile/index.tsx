@@ -15,7 +15,11 @@ import {
   BackButton,
   FakeSwiper,
   LoadingIcon,
-  ServicesTitle
+  ServicesTitle,
+  TestimonialItem,
+  TestimonialInfo,
+  TestimonialName,
+  TestimonialBody
 } from '@/screens/ProviderProfile/style';
 import { Container } from "./style";
 import { useNavigation, useRoute } from "@react-navigation/native";
@@ -24,13 +28,15 @@ import { Estabelecimento } from "@/model/estabelecimento.model";
 import { useEffect, useState } from 'react';
 import { FileObject } from '@/model/interfaces/general-interfaces';
 import { ProviderProfileAction } from '@/screens/ProviderProfile/actions';
-import { FavoriteIcon, BackIcon, UserFeatherIcon, StoreEmptyIcon } from '@/constants/icons';
+import { FavoriteIcon, BackIcon, UserFeatherIcon, StoreEmptyIcon, NextIcon } from '@/constants/icons';
 import { API_BASE_URL, ENDPOINT_BASE_URL } from '@env'
 import { Stars } from '@/components/Stars';
 import { Servico } from '@/model/servico.model';
 import ServiceItem from '@/components/ServiceItem';
-import { FlatList } from 'react-native';
+import { FlatList, Text } from 'react-native';
 import EmptyResult from '@/components/EmptyResult';
+import { Avaliacao } from '@/model/avaliacao.model';
+
 
 const Profile = () => {
   const navigation = useNavigation<PreloadScreenProp>();
@@ -39,6 +45,7 @@ const Profile = () => {
   const [fileSwiper, setFileSwiper] = useState<FileObject[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
   const [servicos, setServicos] = useState<Servico[]>([]);
+  const [avaliacoes, setAvaliacoes] = useState<Avaliacao[]>([]);
   const [refreshing, setRefreshing] = useState<boolean>(false);
   const service = new ProviderProfileAction();
 
@@ -56,6 +63,13 @@ const Profile = () => {
     .finally(() => noRefresh());
   }
 
+  const consultarAvaliacoes = () => {
+    service.listAvaliacoesByEstabelecimentoId(estabelecimento.id)
+    .then((avaliacoes) => {
+      setAvaliacoes(avaliacoes);
+    })
+  }
+
   const onRefresh = () => {
     setRefreshing(true);
     buscarServicos();
@@ -71,6 +85,7 @@ const Profile = () => {
     setLoading(true);
     fileObjectsSwiper();
     buscarServicos();
+    consultarAvaliacoes();
   }, []);
 
 
@@ -99,7 +114,7 @@ const Profile = () => {
           <UserInfoArea>
             <UserAvatar source={{ uri: `${API_BASE_URL}${ENDPOINT_BASE_URL}${estabelecimento.uuidStorage}/avatar/${estabelecimento.avatar}` }} />
             <UserInfo>
-              <UserInfoName> {estabelecimento.nome} </UserInfoName>
+              <UserInfoName>{estabelecimento.nome}</UserInfoName>
               <Stars stars={estabelecimento.star} showNumber />
             </UserInfo>
             <UserFavButton>
@@ -134,9 +149,25 @@ const Profile = () => {
                   />
                 ))
             }
-          <TestimonialArea>
 
-          </TestimonialArea>
+            <TestimonialArea style={{ height: 90 }}>
+              <Swiper 
+                key={avaliacoes.length}
+                showsPagination={false}
+                showsButtons={true}
+                prevButton={<BackIcon size={30} color='#4EADBE' />}
+                nextButton={<NextIcon size={30} color='#4EADBE' />}>
+                {avaliacoes.length > 0 && avaliacoes.map((avaliacao, index) => (
+                  <TestimonialItem key={index}>
+                    <TestimonialInfo>
+                      <TestimonialName>{avaliacao.user.nome}</TestimonialName>
+                      <Stars stars={avaliacao.nota} showNumber={false} />
+                    </TestimonialInfo>
+                    <TestimonialBody>{avaliacao.comentario}</TestimonialBody>
+                  </TestimonialItem>
+                ))}
+              </Swiper>
+            </TestimonialArea>
       </PageBody>
       <BackButton onPress={() => navigation.goBack()}>
         <BackIcon size={30} color='#FFFFFF'/>

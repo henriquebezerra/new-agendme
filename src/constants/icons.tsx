@@ -69,3 +69,7 @@ export const UserFeatherIcon = ({size = 24, color = 'black'}) => {
 export const StoreEmptyIcon = ({size = 24, color = 'black'}) => {
   return <FontAwesome6 name="store-slash" size={size} color={color} />
 }
+
+export const NextIcon = ({size = 24, color = 'black'}) => {
+  return <AntDesign name="right" size={size} color={color} />
+}

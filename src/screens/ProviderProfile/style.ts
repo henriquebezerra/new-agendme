@@ -34,18 +34,17 @@ export const PageBody = styled.View<{ pageBodyHeight ?: number }>`
   border-top-left-radius: 50px;
   margin-top: -50px;
   min-height: ${(props: { pageBodyHeight?: number }) => props.pageBodyHeight ? props.pageBodyHeight : 0}px;
+  border: 1px solid #202020ff;
 `;
 
 export const UserInfoArea = styled.View`
   flex-direction: row;
   margin-top: -30px;
+  border: 1px solid #e21a1aff;
 `;
 
 export const ServiceArea = styled.View`
   margin-top: 20px;
- 
-`;
-export const TestimonialArea = styled.View`
  
 `;
 
@@ -100,8 +99,8 @@ export const BackButton = styled.TouchableOpacity`
   top: 55px;
   left: 10px;
   z-index: 9;
-`;
-
+  `;
+  
 export const LoadingIcon = styled.ActivityIndicator`
   margin-top: 50px;
 `;
@@ -113,3 +112,35 @@ export const ServicesTitle = styled.Text`
   margin-left: 30px;
   margin-bottom: 20px;
 `;
+
+                  
+//TestimonialStyles
+export const TestimonialArea = styled.View`
+  margin-top: 10px;
+`;
+export const TestimonialItem = styled.View`
+  background-color: #268596;
+  padding: 15px;
+  border-radius: 10px;
+  height: 110px;
+  justify-content: center;
+  margin-left: 50px;
+  margin-right: 50px;
+`
+
+export const TestimonialInfo = styled.View`
+  flex-direction: row;  
+  justify-content: space-between;
+  margin-top: 5px;
+`
+
+export const TestimonialName = styled.Text`
+  color: #FFFFFF;
+  font-size: 14px;
+  font-weight: bold;
+`
+
+export const TestimonialBody = styled.Text`
+  color: #FFFFFF;
+  font-size: 13px;
+`
