@@ -149,25 +149,26 @@ const Profile = () => {
                   />
                 ))
             }
-
-            <TestimonialArea>
-              <Swiper 
-                key={avaliacoes.length}
-                showsPagination={false}
-                showsButtons={true}
-                prevButton={<BackIcon size={30} color='#4EADBE' />}
-                nextButton={<NextIcon size={30} color='#4EADBE' />}>
-                {avaliacoes.length > 0 && avaliacoes.map((avaliacao, index) => (
-                  <TestimonialItem key={index}>
-                    <TestimonialInfo>
-                      <TestimonialName>{avaliacao.user.nome}</TestimonialName>
-                      <Stars stars={avaliacao.nota} showNumber={false} backgroundColor='#268596' />
-                    </TestimonialInfo>
-                    <TestimonialBody>{avaliacao.comentario}</TestimonialBody>
-                  </TestimonialItem>
-                ))}
-              </Swiper>
-            </TestimonialArea>
+            {avaliacoes.length > 0 &&
+              <TestimonialArea>
+                <Swiper 
+                  key={avaliacoes.length}
+                  showsPagination={false}
+                  showsButtons={true}
+                  prevButton={<BackIcon size={30} color='#268596' />}
+                  nextButton={<NextIcon size={30} color='#268596' />}>
+                  {avaliacoes.length > 0 && avaliacoes.map((avaliacao, index) => (
+                    <TestimonialItem key={index}>
+                      <TestimonialInfo>
+                        <TestimonialName>{avaliacao.user.nome}</TestimonialName>
+                        <Stars stars={avaliacao.nota} showNumber={false} backgroundColor='#268596' />
+                      </TestimonialInfo>
+                      <TestimonialBody>{avaliacao.comentario}</TestimonialBody>
+                    </TestimonialItem>
+                  ))}
+                </Swiper>
+              </TestimonialArea>
+            }
       </PageBody>
       <BackButton onPress={() => navigation.goBack()}>
         <BackIcon size={30} color='#FFFFFF'/>

@@ -43,7 +43,7 @@ export const UserInfoArea = styled.View`
 
 export const ServiceArea = styled.View`
   margin-top: 20px;
-  max-height: 400px;
+  max-height: 350px;
 `;
 
 export const SwipeItem = styled.View`
