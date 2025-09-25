@@ -150,7 +150,7 @@ const Profile = () => {
                 ))
             }
 
-            <TestimonialArea style={{ height: 90 }}>
+            <TestimonialArea>
               <Swiper 
                 key={avaliacoes.length}
                 showsPagination={false}

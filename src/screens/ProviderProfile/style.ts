@@ -34,18 +34,16 @@ export const PageBody = styled.View<{ pageBodyHeight ?: number }>`
   border-top-left-radius: 50px;
   margin-top: -50px;
   min-height: ${(props: { pageBodyHeight?: number }) => props.pageBodyHeight ? props.pageBodyHeight : 0}px;
-  border: 1px solid #202020ff;
 `;
 
 export const UserInfoArea = styled.View`
   flex-direction: row;
   margin-top: -30px;
-  border: 1px solid #e21a1aff;
 `;
 
 export const ServiceArea = styled.View`
   margin-top: 20px;
- 
+  max-height: 345px;
 `;
 
 export const SwipeItem = styled.View`
@@ -117,6 +115,7 @@ export const ServicesTitle = styled.Text`
 //TestimonialStyles
 export const TestimonialArea = styled.View`
   margin-top: 10px;
+  height: 120px;
 `;
 export const TestimonialItem = styled.View`
   background-color: #268596;
