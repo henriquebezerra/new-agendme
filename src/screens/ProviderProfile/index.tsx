@@ -161,7 +161,7 @@ const Profile = () => {
                   <TestimonialItem key={index}>
                     <TestimonialInfo>
                       <TestimonialName>{avaliacao.user.nome}</TestimonialName>
-                      <Stars stars={avaliacao.nota} showNumber={false} />
+                      <Stars stars={avaliacao.nota} showNumber={false} backgroundColor='#268596' />
                     </TestimonialInfo>
                     <TestimonialBody>{avaliacao.comentario}</TestimonialBody>
                   </TestimonialItem>
