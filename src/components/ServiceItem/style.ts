@@ -35,14 +35,3 @@ export const AgendarButtonText = styled.Text`
   color: #ffffff;
 
 `;
-
-
-// <ServiceItem key={key}>
-//       <ServiceInfo>
-//         <ServiceName>{title}</ServiceName>
-//         <ServicePrice>R$ {value.toFixed(2)}</ServicePrice>
-//       </ServiceInfo>
-//       <AgendarButton>
-//         <AgendarButtonText>Agendar</AgendarButtonText>
-//       </AgendarButton>
-//     </ServiceItem>
