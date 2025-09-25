@@ -24,6 +24,9 @@ export interface ServiceItemProps {
   value: number;
 }
 
+export interface TestimonialsPops {
+  idEstabelecimento: number;
+}
 export interface EmptyResultProps {
   message?: string;
   subMessage?: string;

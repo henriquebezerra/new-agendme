@@ -5,7 +5,6 @@ import {
   PageBody,
   UserInfoArea,
   ServiceArea,
-  TestimonialArea,
   SwipeImage,
   SwipeItem,
   UserAvatar,
@@ -16,10 +15,6 @@ import {
   FakeSwiper,
   LoadingIcon,
   ServicesTitle,
-  TestimonialItem,
-  TestimonialInfo,
-  TestimonialName,
-  TestimonialBody
 } from '@/screens/ProviderProfile/style';
 import { Container } from "./style";
 import { useNavigation, useRoute } from "@react-navigation/native";
@@ -36,6 +31,7 @@ import ServiceItem from '@/components/ServiceItem';
 import { FlatList, Text } from 'react-native';
 import EmptyResult from '@/components/EmptyResult';
 import { Avaliacao } from '@/model/avaliacao.model';
+import Testimonials from '@/components/Testimonials';
 
 
 const Profile = () => {
@@ -63,13 +59,6 @@ const Profile = () => {
     .finally(() => noRefresh());
   }
 
-  const consultarAvaliacoes = () => {
-    service.listAvaliacoesByEstabelecimentoId(estabelecimento.id)
-    .then((avaliacoes) => {
-      setAvaliacoes(avaliacoes);
-    })
-  }
-
   const onRefresh = () => {
     setRefreshing(true);
     buscarServicos();
@@ -85,7 +74,6 @@ const Profile = () => {
     setLoading(true);
     fileObjectsSwiper();
     buscarServicos();
-    consultarAvaliacoes();
   }, []);
 
 
@@ -121,54 +109,35 @@ const Profile = () => {
               <FavoriteIcon size={24} color='#999999'/>
             </UserFavButton>
           </UserInfoArea>
-            {
-              loading && <LoadingIcon size="large" color="#999999" />
-            }
-            {
-              servicos.length > 0 ? (
-                <ServiceArea>
-                  <ServicesTitle>Lista de serviços</ServicesTitle>
-                    <FlatList
-                      refreshing={refreshing}
-                      onRefresh={onRefresh}
-                      data={servicos}
-                      keyExtractor={(item) => item.id.toString()}
-                      renderItem={({ item, index }) => (
-                        <ServiceItem key={index} title={item.titulo} value={item.valor} />
-                      )}
-                     />
-                </ServiceArea>
-              ) :  (
-                !loading && (
-                  <EmptyResult 
-                    message='Nenhum serviço cadastrado'
-                    subMessage='O atendente ainda não cadastrou seus serviços'
-                    textColor='#63C2D1' 
-                    iconColor='#63C2D1'
-                    searchIcon={<StoreEmptyIcon size={100} color='#63C2D1' />}
-                  />
-                ))
-            }
-            {avaliacoes.length > 0 &&
-              <TestimonialArea>
-                <Swiper 
-                  key={avaliacoes.length}
-                  showsPagination={false}
-                  showsButtons={true}
-                  prevButton={<BackIcon size={30} color='#268596' />}
-                  nextButton={<NextIcon size={30} color='#268596' />}>
-                  {avaliacoes.length > 0 && avaliacoes.map((avaliacao, index) => (
-                    <TestimonialItem key={index}>
-                      <TestimonialInfo>
-                        <TestimonialName>{avaliacao.user.nome}</TestimonialName>
-                        <Stars stars={avaliacao.nota} showNumber={false} backgroundColor='#268596' />
-                      </TestimonialInfo>
-                      <TestimonialBody>{avaliacao.comentario}</TestimonialBody>
-                    </TestimonialItem>
-                  ))}
-                </Swiper>
-              </TestimonialArea>
-            }
+          {
+            loading && <LoadingIcon size="large" color="#999999" />
+          }
+          {
+            servicos.length > 0 ? (
+              <ServiceArea>
+                <ServicesTitle>Lista de serviços</ServicesTitle>
+                  <FlatList
+                    refreshing={refreshing}
+                    onRefresh={onRefresh}
+                    data={servicos}
+                    keyExtractor={(item) => item.id.toString()}
+                    renderItem={({ item, index }) => (
+                      <ServiceItem key={index} title={item.titulo} value={item.valor} />
+                    )}
+                    />
+              </ServiceArea>
+            ) :  (
+              !loading && (
+                <EmptyResult 
+                  message='Nenhum serviço cadastrado'
+                  subMessage='O atendente ainda não cadastrou seus serviços'
+                  textColor='#63C2D1' 
+                  iconColor='#63C2D1'
+                  searchIcon={<StoreEmptyIcon size={100} color='#63C2D1' />}
+                />
+              ))
+          }
+        <Testimonials idEstabelecimento={estabelecimento.id} />
       </PageBody>
       <BackButton onPress={() => navigation.goBack()}>
         <BackIcon size={30} color='#FFFFFF'/>
