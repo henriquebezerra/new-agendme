@@ -1,49 +1,52 @@
-import  Swiper  from 'react-native-swiper';
+import EmptyResult from '@/components/EmptyResult';
+import ServiceItem from '@/components/ServiceItem';
+import { Stars } from '@/components/Stars';
+import Testimonials from '@/components/Testimonials';
+import { BackIcon, FavoriteIcon, FavoriteIconActive, StoreEmptyIcon, UserFeatherIcon } from '@/constants/icons';
+import { Estabelecimento } from "@/model/estabelecimento.model";
+import { FileObject } from '@/model/interfaces/general-interfaces';
+import { Servico } from '@/model/servico.model';
+import { ProviderProfileAction } from '@/screens/ProviderProfile/actions';
 import {
-  SwipeDot,
-  SwipeDotActive,
-  PageBody,
-  UserInfoArea,
-  ServiceArea,
-  SwipeImage,
-  SwipeItem,
-  UserAvatar,
-  UserInfo,
-  UserInfoName,
-  UserFavButton,
   BackButton,
   FakeSwiper,
   LoadingIcon,
+  PageBody,
+  ServiceArea,
   ServicesTitle,
+  SwipeDot,
+  SwipeDotActive,
+  SwipeImage,
+  SwipeItem,
+  UserAvatar,
+  UserFavButton,
+  UserInfo,
+  UserInfoArea,
+  UserInfoName,
 } from '@/screens/ProviderProfile/style';
-import { Container } from "./style";
-import { useNavigation, useRoute } from "@react-navigation/native";
 import { PreloadScreenProp } from "@/types/general-type";
-import { Estabelecimento } from "@/model/estabelecimento.model";
-import { useEffect, useState } from 'react';
-import { FileObject } from '@/model/interfaces/general-interfaces';
-import { ProviderProfileAction } from '@/screens/ProviderProfile/actions';
-import { FavoriteIcon, BackIcon, UserFeatherIcon, StoreEmptyIcon, NextIcon } from '@/constants/icons';
-import { API_BASE_URL, ENDPOINT_BASE_URL } from '@env'
-import { Stars } from '@/components/Stars';
-import { Servico } from '@/model/servico.model';
-import ServiceItem from '@/components/ServiceItem';
-import { FlatList, Text } from 'react-native';
-import EmptyResult from '@/components/EmptyResult';
-import { Avaliacao } from '@/model/avaliacao.model';
-import Testimonials from '@/components/Testimonials';
+import { API_BASE_URL, ENDPOINT_BASE_URL } from '@env';
+import { useNavigation, useRoute } from "@react-navigation/native";
+import { useContext, useEffect, useState } from 'react';
+import { FlatList } from 'react-native';
+import Swiper from 'react-native-swiper';
+import { Container } from "./style";
+import { UserContext } from '@/contexts/UserContext';
+import Toast from 'react-native-toast-message';
 
 
 const Profile = () => {
   const navigation = useNavigation<PreloadScreenProp>();
   const route = useRoute();
+  const {state: user } = useContext(UserContext);
   const { estabelecimento } = route.params as { estabelecimento: Estabelecimento };
   const [fileSwiper, setFileSwiper] = useState<FileObject[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
   const [servicos, setServicos] = useState<Servico[]>([]);
-  const [avaliacoes, setAvaliacoes] = useState<Avaliacao[]>([]);
   const [refreshing, setRefreshing] = useState<boolean>(false);
+  const [isFavorite, setIsFavorite] = useState<boolean>(false);
   const service = new ProviderProfileAction();
+
 
   const fileObjectsSwiper = () => {
     if(estabelecimento && estabelecimento.uuidStorage) {
@@ -57,6 +60,27 @@ const Profile = () => {
       setServicos(servicos);
     })
     .finally(() => noRefresh());
+  }
+
+  const checkFavorite = () => { 
+    if (user.user.id) {
+      service.isFavorite(estabelecimento.id, user.user.id).then((isFav) => {
+        setIsFavorite(isFav);
+      });
+    }
+  }
+
+  const handleFavorite = () => {
+    if (user.user.id) { 
+      service.handleFavorite(estabelecimento.id, user.user.id).then((favorite:boolean) => {
+        setIsFavorite(favorite);
+        Toast.show({
+          type: 'success',
+          text1: 'Favorito',
+          text2: 'Estabelecimento adicionado aos favoritos!'
+        });
+      });
+    }
   }
 
   const onRefresh = () => {
@@ -74,6 +98,7 @@ const Profile = () => {
     setLoading(true);
     fileObjectsSwiper();
     buscarServicos();
+    checkFavorite();
   }, []);
 
 
@@ -105,8 +130,11 @@ const Profile = () => {
               <UserInfoName>{estabelecimento.nome}</UserInfoName>
               <Stars stars={estabelecimento.star} showNumber />
             </UserInfo>
-            <UserFavButton>
-              <FavoriteIcon size={24} color='#999999'/>
+            <UserFavButton onPress={handleFavorite}>
+              {isFavorite ? 
+                <FavoriteIconActive size={24} color='#63C2D1' />
+              : <FavoriteIcon size={24} color='#999999'/>
+              }  
             </UserFavButton>
           </UserInfoArea>
           {

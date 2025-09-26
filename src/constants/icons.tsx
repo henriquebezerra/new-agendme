@@ -42,6 +42,10 @@ export const FavoriteIcon = ({size = 24, color = 'black'}) => {
   return <MaterialIcons name="favorite-border" size={size} color={color} />
 }
 
+export const FavoriteIconActive = ({size = 24, color = 'black'}) => {
+  return <MaterialIcons name="favorite" size={size} color={color} />
+}
+
 export const FavoriteIconFull = ({size = 24, color = 'black'}) => {
   return <MaterialIcons name="favorite" size={size} color={color} />
 }
