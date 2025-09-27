@@ -7,6 +7,7 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import UserNavigator from "./UserNavigator";
 import UserProfile from "@/screens/UserProfile";
 import Toast from "react-native-toast-message";
+import { toastConfig } from "@/components/Toast/style";
 
 
 const Stack = createNativeStackNavigator();
@@ -29,7 +30,7 @@ export default function AppNavigator() {
           <Stack.Screen name="UserProfile" component={UserProfile}/>
         </Stack.Navigator>
       </NavigationContainer>
-      <Toast />
+      <Toast config={toastConfig}/>
     </>
   );
 }

@@ -1,6 +1,6 @@
 import UserContextProvider from '@contexts/UserContext';
-import AppNavigator from '@navigation/AppNavigator';
 import { Barrio_400Regular } from '@expo-google-fonts/barrio';
+import AppNavigator from '@navigation/AppNavigator';
 import { useFonts } from 'expo-font';
 
 export default function App() {

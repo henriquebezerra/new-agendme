@@ -2,7 +2,9 @@ import EmptyResult from '@/components/EmptyResult';
 import ServiceItem from '@/components/ServiceItem';
 import { Stars } from '@/components/Stars';
 import Testimonials from '@/components/Testimonials';
+import { ToastApp } from '@/components/Toast';
 import { BackIcon, FavoriteIcon, FavoriteIconActive, StoreEmptyIcon, UserFeatherIcon } from '@/constants/icons';
+import { UserContext } from '@/contexts/UserContext';
 import { Estabelecimento } from "@/model/estabelecimento.model";
 import { FileObject } from '@/model/interfaces/general-interfaces';
 import { Servico } from '@/model/servico.model';
@@ -31,8 +33,6 @@ import { useContext, useEffect, useState } from 'react';
 import { FlatList } from 'react-native';
 import Swiper from 'react-native-swiper';
 import { Container } from "./style";
-import { UserContext } from '@/contexts/UserContext';
-import Toast from 'react-native-toast-message';
 
 
 const Profile = () => {
@@ -74,11 +74,7 @@ const Profile = () => {
     if (user.user.id) { 
       service.handleFavorite(estabelecimento.id, user.user.id).then((favorite:boolean) => {
         setIsFavorite(favorite);
-        Toast.show({
-          type: 'success',
-          text1: 'Favorito',
-          text2: 'Estabelecimento adicionado aos favoritos!'
-        });
+        ToastApp('success', 'Favorito!', favorite ? 'Estabelecimento adicionado aos favoritos' : 'Estabelecimento removido dos favoritos');
       });
     }
   }
