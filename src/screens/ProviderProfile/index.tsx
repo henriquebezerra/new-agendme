@@ -6,6 +6,7 @@ import { ToastApp } from '@/components/Toast';
 import { BackIcon, FavoriteIcon, FavoriteIconActive, StoreEmptyIcon, UserFeatherIcon } from '@/constants/icons';
 import { UserContext } from '@/contexts/UserContext';
 import { Estabelecimento } from "@/model/estabelecimento.model";
+import { FavoritoResponse } from '@/model/favorito-response.model';
 import { FileObject } from '@/model/interfaces/general-interfaces';
 import { Servico } from '@/model/servico.model';
 import { ProviderProfileAction } from '@/screens/ProviderProfile/actions';
@@ -30,10 +31,10 @@ import { PreloadScreenProp } from "@/types/general-type";
 import { API_BASE_URL, ENDPOINT_BASE_URL } from '@env';
 import { useNavigation, useRoute } from "@react-navigation/native";
 import { useContext, useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { FlatList } from 'react-native';
 import Swiper from 'react-native-swiper';
 import { Container } from "./style";
-import { FavoritoResponse } from '@/model/favorito-response.model';
 
 
 const Profile = () => {
@@ -47,6 +48,7 @@ const Profile = () => {
   const [refreshing, setRefreshing] = useState<boolean>(false);
   const [isFavorite, setIsFavorite] = useState<boolean>(false);
   const service = new ProviderProfileAction();
+  const { t } = useTranslation();
 
 
   const fileObjectsSwiper = () => {
@@ -140,7 +142,7 @@ const Profile = () => {
           {
             servicos.length > 0 ? (
               <ServiceArea>
-                <ServicesTitle>Lista de serviços</ServicesTitle>
+                <ServicesTitle>{t('servicesListTitle')}</ServicesTitle>
                   <FlatList
                     refreshing={refreshing}
                     onRefresh={onRefresh}
@@ -154,8 +156,8 @@ const Profile = () => {
             ) :  (
               !loading && (
                 <EmptyResult 
-                  message='Nenhum serviço cadastrado'
-                  subMessage='O atendente ainda não cadastrou seus serviços'
+                  message={t('serviceNotFound')}
+                  subMessage={t('noServicesRegistered')}
                   textColor='#63C2D1' 
                   iconColor='#63C2D1'
                   searchIcon={<StoreEmptyIcon size={100} color='#63C2D1' />}

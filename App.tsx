@@ -2,6 +2,7 @@ import UserContextProvider from '@contexts/UserContext';
 import { Barrio_400Regular } from '@expo-google-fonts/barrio';
 import AppNavigator from '@navigation/AppNavigator';
 import { useFonts } from 'expo-font';
+import '@/localization';
 
 export default function App() {
   const [fontsLoaded] = useFonts({

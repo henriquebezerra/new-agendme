@@ -1,0 +1,20 @@
+{
+  "whatAreYouLookingFor":"O que você está procurando?",
+  "findAProfessional": "Encontre um profissional.",
+  "serviceNotFound":"Nenhum serviço cadastrado",
+  "noServicesRegistered":"O atendente ainda não cadastrou seus serviços",
+  "noResultsFoundDefault": "Nenhum resultado encontrado",
+  "noResultsFoundSubMessageDefault": "Tente verificar a ortografia ou usar termos diferentes",
+  "servicesListTitle": "Lista de serviços",
+  "scheduleButton": "Agendar",
+  "typeYourEmail": "Digite seu e-mail",
+  "typeYourPassword": "Digite sua senha",
+  "loginButton": "Entrar",
+  "noRegistrationYet": "Ainda não possui uma conta?",
+  "signUpButtonScreen": "Cadastre-se",
+  "typeYourName": "Digite seu nome",
+  "selectYourProfile":"Selecione seu perfil",
+  "signUpButton": "Cadastrar",
+  "doYouHaveAccountAlready":"Já possui uma conta?",
+  "signInScreen": "Faça login"
+}

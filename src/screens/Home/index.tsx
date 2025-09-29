@@ -20,6 +20,7 @@ import EstabelecimentoItem from "@/components/EstabelecimentoItem";
 import { Alert } from "@/components/Alert";
 import { FlatList, Keyboard } from "react-native";
 import EmptyResult from "@/components/EmptyResult";
+import { useTranslation } from "react-i18next";
 
 
 const Home = () => { 
@@ -29,7 +30,8 @@ const Home = () => {
   const service = new HomeActions();
   const [estabelecimentos, setEstabelecimentos ] = useState<Estabelecimento[]>();
   const [ refreshing, setRefreshing ] = useState(false);
-
+  const { t } = useTranslation();
+  
   const handleLocationFinder = () => {
     setEstabelecimentos([]);
     setLoading(true);
@@ -62,7 +64,7 @@ const Home = () => {
     <Container>
       <ContentContainer>
         <HeaderArea>
-          <HeaderTitle>Encontre um profissional.</HeaderTitle>
+          <HeaderTitle>{t('findAProfessional')}</HeaderTitle>
           <SearchButton onPress={() => {navigation.navigate('Search')}}>
             <SearchIcon color="#FFFFFF"/>
           </SearchButton>
@@ -70,7 +72,7 @@ const Home = () => {
 
         <SearchArea>
           <SearchInput 
-            placeholder="O que está procurando?"
+            placeholder={t('whatAreYouLookingFor')}
             placeholderTextColor="#FFFFFF"
             value={estabelecimentoText}
             onChangeText={(estabelecimento:string) => setEstabelecimentoText(estabelecimento)}

@@ -18,6 +18,7 @@ import DropdownPicker from '@/components/DropdownPicker';
 import { OptionsType, PreloadScreenProp } from '@/types/general-type';
 import { UserContext } from '@/contexts/UserContext';
 import { Usuario } from '@/model/usuario.model';
+import { useTranslation } from 'react-i18next';
 
 const SignUp = () => {
 
@@ -30,6 +31,7 @@ const SignUp = () => {
   const navigation = useNavigation<PreloadScreenProp>();
   const service = new SignUpAction();
   const { dispatch: userDispatch } = useContext(UserContext);
+  const { t } = useTranslation();
 
   useEffect(() =>{
     iniciarAnimacao();
@@ -81,19 +83,19 @@ const SignUp = () => {
         }]}>
         <SignInput 
           icon={<PersonIcon/>}
-          placeholder='Digite seu nome'
+          placeholder={t('typeYourName')}
           value={nameField}
           onChangeText={name=>setNameField(name)}/>
 
           <SignInput 
             icon={<EmailIcon/>}
-            placeholder='Digite seu e-mail'
+            placeholder={t('typeYourEmail')}
             value={emailField}
             onChangeText={email=>setEmailField(email)}/>
 
           <SignInput 
             icon={<PasswordIcon/>} 
-            placeholder='Digite sua senha'
+            placeholder={t('typeYourPassword')}
             value={passwordField}
             onChangeText={password => setPasswordField(password)}
             password={true}/>
@@ -101,15 +103,15 @@ const SignUp = () => {
           <DropdownPicker 
             options={perfisOptions} 
             setSelectedValue={setProfileField} 
-            placeholder={profileField.label || 'Selecione seu perfil'}/>
+            placeholder={profileField.label || t('selectYourProfile')}/>
 
           <CustomButton onPress={handleCadastrar}>
-            <CustomButtonText>Cadastrar</CustomButtonText>
+            <CustomButtonText>{t('signUpButton')}</CustomButtonText>
           </CustomButton>
         
           <SignMessageButton onPress={abrirTelaLogin}>
-            <SignMessageText>Já possui uma conta?</SignMessageText>
-            <SignMessageTextButton>Faça login</SignMessageTextButton>
+            <SignMessageText>{t('doYouHaveAccountAlready')}</SignMessageText>
+            <SignMessageTextButton>{t('signInScreen')}</SignMessageTextButton>
           </SignMessageButton>
         </Animated.View>
       </AreaTecladoView>

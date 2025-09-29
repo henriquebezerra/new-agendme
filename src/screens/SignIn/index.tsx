@@ -22,6 +22,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { PreloadScreenProp } from "@/types/general-type";
 import { Alert } from "@/components/Alert";
 import { API_BASE_URL, ENDPOINT_BASE_URL } from "@env";
+import { useTranslation } from "react-i18next";
 
 
 const SignIn=() => {
@@ -32,6 +33,7 @@ const SignIn=() => {
   const navigation = useNavigation<PreloadScreenProp>();
   const {dispatch: userDispatch } = useContext(UserContext);
   const service = new SignInAction();
+  const { t } = useTranslation();
 
   useEffect(() =>{
     iniciarAnimacao();
@@ -86,25 +88,25 @@ const SignIn=() => {
           }]
         }]}>
           <SignInput 
-            placeholder='Digite seu e-mail'
+            placeholder={t('typeYourEmail')}
             value={emailField}
             onChangeText={texto=>setEmailField(texto)}
             icon={<EmailIcon/>}
           />
           <SignInput 
-            placeholder='Digite sua senha'
+            placeholder={t('typeYourPassword')}
             value={passwordField}
             onChangeText={password=>setPasswordField(password)}
             icon={<PasswordIcon/>}
             password={true}
           />
           <CustomButton onPress={login}>
-            <CustomButtonText>Login</CustomButtonText>
+            <CustomButtonText>{t('loginButton')}</CustomButtonText>
           </CustomButton>
         </Animated.View>
         <SignMessageButton onPress={abrirTelaCadastro}>
-          <SignMessageText>Ainda não possui uma conta?</SignMessageText>
-          <SignMessageTextButton>Cadastre-se</SignMessageTextButton>
+          <SignMessageText>{t('noRegistrationYet')}</SignMessageText>
+          <SignMessageTextButton>{t('signUpButtonScreen')}</SignMessageTextButton>
         </SignMessageButton>
       </AreaTecladoView>
     </Container>

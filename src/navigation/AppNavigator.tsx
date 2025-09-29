@@ -9,7 +9,6 @@ import UserProfile from "@/screens/UserProfile";
 import Toast from "react-native-toast-message";
 import { toastConfig } from "@/components/Toast/style";
 
-
 const Stack = createNativeStackNavigator();
 
 export default function AppNavigator() {
