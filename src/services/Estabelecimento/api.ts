@@ -1,3 +1,4 @@
+import { FavoritoResponse } from '@/model/favorito-response.model';
 import  apiClient  from '@/services/api';
 
 export class EstabelecimentoApi {
@@ -9,7 +10,7 @@ export class EstabelecimentoApi {
     return (await apiClient.get(`/estabelecimento/isFavorito/usuario/${idUser}/estabelecimento/${idEstabelecimento}`)).data;
   }
 
-  public async favoritarEstabelecimento(idEstabelecimento: number, idUser: number): Promise<boolean> {
+  public async favoritarEstabelecimento(idEstabelecimento: number, idUser: number): Promise<FavoritoResponse> {
     return (await apiClient.post(`/estabelecimento/favoritar/${idUser}/estabelecimento/${idEstabelecimento}`)).data;
   }
 

@@ -33,6 +33,7 @@ import { useContext, useEffect, useState } from 'react';
 import { FlatList } from 'react-native';
 import Swiper from 'react-native-swiper';
 import { Container } from "./style";
+import { FavoritoResponse } from '@/model/favorito-response.model';
 
 
 const Profile = () => {
@@ -72,9 +73,9 @@ const Profile = () => {
 
   const handleFavorite = () => {
     if (user.user.id) { 
-      service.handleFavorite(estabelecimento.id, user.user.id).then((favorite:boolean) => {
-        setIsFavorite(favorite);
-        ToastApp('success', 'Favorito!', favorite ? 'Estabelecimento adicionado aos favoritos' : 'Estabelecimento removido dos favoritos');
+      service.handleFavorite(estabelecimento.id, user.user.id).then((favorito:FavoritoResponse) => {
+        setIsFavorite(favorito.favorito);
+        ToastApp('success', 'Favorito!', favorito.message);
       });
     }
   }

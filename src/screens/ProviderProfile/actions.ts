@@ -1,3 +1,4 @@
+import { FavoritoResponse } from "@/model/favorito-response.model";
 import { FileObject } from "@/model/interfaces/general-interfaces";
 import { Servico } from "@/model/servico.model";
 import { EstabelecimentoApi } from "@/services/Estabelecimento/api";
@@ -29,7 +30,7 @@ export class ProviderProfileAction {
     return this.estabelecimentoApi.isFavorite(estabelecimentoId, idUser);
   }
 
-  public handleFavorite(estabelecimentoId:number, idUser:number): Promise<boolean>{
+  public handleFavorite(estabelecimentoId:number, idUser:number): Promise<FavoritoResponse>{
     return this.estabelecimentoApi.favoritarEstabelecimento(estabelecimentoId, idUser);
   }
 

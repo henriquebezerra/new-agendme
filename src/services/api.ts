@@ -1,6 +1,6 @@
 import { Authenticated } from '@/model/authenticated.model';
 import { Validation } from '@/model/interfaces/general-interfaces';
-import { API_BASE_URL } from '@env';
+import { API_BASE_URL, LOCALE_LANGUAGE } from '@env';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios, { AxiosError, type AxiosInstance } from 'axios';
 
@@ -53,6 +53,8 @@ apiClient.interceptors.request.use(
       if (token && !publicPaths.includes(config.url || '')) {
         config.headers.Authorization = `Bearer ${token}`;
       }
+
+      config.headers['Accept-Language'] = LOCALE_LANGUAGE;
       return config;
     },
     (error) => {
