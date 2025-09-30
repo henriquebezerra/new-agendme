@@ -5,7 +5,7 @@
   "noServicesRegistered":"The attendant has not yet registered their services.",
   "noResultsFoundDefault": "No results found",
   "noResultsFoundSubMessageDefault": "Try checking the spelling or using different terms.",
-  "servicesListTitle": "Services List",
+  "servicesListTitle": "Services list",
   "scheduleButton": "Schedule",
   "typeYourEmail": "Type your email",
   "typeYourPassword": "Type your password",
@@ -17,5 +17,6 @@
   "signUpButton": "Sign up",
   "doYouHaveAccountAlready":"Do you already have an account?",
   "signInScreen": "Sign in",
-  "emptyModalDescription": "No options available"
+  "emptyModalDescription": "No options available",
+  "finishScheduleButton": "Finish scheduling"
 }

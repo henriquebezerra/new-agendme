@@ -6,6 +6,7 @@ import React from 'react';
 import { FlatList, Text, TouchableOpacity, View } from 'react-native';
 import {
   Container,
+  ContentModal,
   EmptyOptionView,
   EmptyText,
   styles
@@ -38,20 +39,22 @@ const DropdownPicker: React.FC<DropdownPickerProps> = ({options, setSelectedValu
       </TouchableOpacity>
 
       <CustomModal visible={isVisible} onClose={closeModal}>
-        {options.length ? 
-          <FlatList
-            data={options}
-            keyExtractor={(item) => item.value}
-            renderItem={({ item }) => (
-              <TouchableOpacity onPress={() => handleOptionSelect(item)}>
-                <Text style={styles.optionText}>{item.label}</Text>
-              </TouchableOpacity>
-              )}
-            /> : 
+        <ContentModal>
+          {options.length ? 
+            <FlatList
+              data={options}
+              keyExtractor={(item) => item.value}
+              renderItem={({ item }) => (
+                <TouchableOpacity onPress={() => handleOptionSelect(item)}>
+                  <Text style={styles.optionText}>{item.label}</Text>
+                </TouchableOpacity>
+                )}
+              /> : 
             <EmptyOptionView>
               <EmptyText>{t('emptyModalDescription')}</EmptyText>
             </EmptyOptionView>
           }
+        </ContentModal>
       </CustomModal>
     </View>
   );

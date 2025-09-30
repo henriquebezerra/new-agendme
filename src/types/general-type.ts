@@ -13,5 +13,9 @@ export type RootStackParamList = {
   ProviderProfile: undefined;
 };
 
+export type CustomModalStyle = {
+  backgroundColor?: string;
+}
+
 
 export type PreloadScreenProp = NativeStackNavigationProp<RootStackParamList>;

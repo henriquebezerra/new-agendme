@@ -10,21 +10,23 @@ import {
 import { useModal } from '@/hooks/useModal';
 import { ServiceItemProps } from '@/model/interfaces/general-interfaces';
 import { Servico } from '@/model/servico.model';
-import { CURRENCY } from '@env';
+import { CURRENCY, LOCALE_LANGUAGE } from '@env';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Text } from 'react-native';
-import CustomModal from '../Modal';
+import CustomModal from '@/components/Modal';
+import Schedule from '@/components/Schedule';
+import { useCurrency } from '@/hooks/useCurrency';
 
-const ServiceItem: React.FC<ServiceItemProps> = ({title, value, servico }) => {
+const ServiceItem: React.FC<ServiceItemProps> = ({
+  title, 
+  servico,
+  estabelecimento 
+}) => {
   
   const { t } = useTranslation();
   const { isVisible, openModal, closeModal } = useModal();
   const [selectedService, setSelectedService] = useState<Servico | null>(null);
-  const formattedValue = new Intl.NumberFormat('pt-BR', {
-    style: 'currency',
-    currency: CURRENCY,
-  }).format(value);
+  const { formattedValue } = useCurrency(servico?.valor);
 
   const handleSchedule = (serv:Servico) => {
    setSelectedService(serv);
@@ -43,8 +45,12 @@ const ServiceItem: React.FC<ServiceItemProps> = ({title, value, servico }) => {
         </AgendarButton>
       </ServiceItemArea>
 
-      <CustomModal visible={isVisible} onClose={closeModal}> 
-        <Text>Agendar {selectedService?.titulo} por {formattedValue}</Text>
+      <CustomModal 
+        visible={isVisible} 
+        onClose={closeModal} 
+        style={{ backgroundColor: '#83D6E3' }}
+        showCloseButton>
+        <Schedule servico={selectedService} estabelecimento={estabelecimento} />
       </CustomModal>
     </>
   );

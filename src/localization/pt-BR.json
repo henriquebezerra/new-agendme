@@ -17,5 +17,7 @@
   "signUpButton": "Cadastrar",
   "doYouHaveAccountAlready":"Já possui uma conta?",
   "signInScreen": "Faça login",
-  "emptyModalDescription": "Nenhuma opção disponível no momento"
+  "emptyModalDescription": "Nenhuma opção disponível no momento",
+  "finishScheduleButton": "Finalizar agendamento"
+
 }

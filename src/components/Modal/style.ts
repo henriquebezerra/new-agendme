@@ -16,7 +16,11 @@ export const ContentModal = styled.View`
   background-color: #fff;
   border-top-left-radius: 30px;
   border-top-right-radius: 30px;
-  padding: 20px;
-  max-height: 250px;
   overflow: hidden;
 `;
+
+export const CloseButton = styled.TouchableOpacity`
+  width: 40px;
+  height: 40px;
+  padding: 15px 0 0 15px;
+`

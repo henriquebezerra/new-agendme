@@ -1,14 +1,9 @@
 
+import { ExpandedIcon } from '@/constants/icons';
 import { Modal } from 'react-native';
-import { AriaModalContainer, AriaModalContent, ContentModal } from './style';
+import { AriaModalContainer, AriaModalContent, CloseButton, ContentModal } from './style';
+import { CustomModalProps } from '@/model/interfaces/general-interfaces';
 
-interface CustomModalProps {
-  visible: boolean;
-  onClose: () => void;
-  children: React.ReactNode;
-  animationType?: 'slide' | 'fade' | 'none';
-  transparent?: boolean;
-}
 
 const CustomModal:React.FC<CustomModalProps> = (
   {
@@ -16,17 +11,23 @@ const CustomModal:React.FC<CustomModalProps> = (
     onClose,
     children,
     animationType = 'slide',
-    transparent = true
+    transparent = true,
+    showCloseButton = false,
+    style
   }) => {
   return (
     <Modal
       visible={visible}
       animationType={animationType}
-      transparent={transparent}
-    >
+      transparent={transparent}>
       <AriaModalContent onPress={onClose}>
         <AriaModalContainer>
-          <ContentModal>
+          <ContentModal style={style}>
+            {showCloseButton && 
+              <CloseButton onPress={onClose}>
+                <ExpandedIcon/>
+              </CloseButton>
+            }
             {children}
           </ContentModal>
         </AriaModalContainer>

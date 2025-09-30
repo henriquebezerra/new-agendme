@@ -1,5 +1,6 @@
 import {Estabelecimento} from "@/model/estabelecimento.model";
 import { Servico } from "@/model/servico.model";
+import { CustomModalStyle } from "@/types/general-type";
 
 export interface Validation {
   message: string;
@@ -22,8 +23,8 @@ export interface FileObject {
 
 export interface ServiceItemProps {
   title: string;
-  value: number;
   servico: Servico;
+  estabelecimento: Estabelecimento
 }
 
 export interface TestimonialsPops {
@@ -35,4 +36,19 @@ export interface EmptyResultProps {
   iconColor?: string;
   textColor?: string;
   searchIcon?: React.ReactNode;
+}
+
+export interface ScheduleProps {
+  servico: Servico | null;
+  estabelecimento: Estabelecimento | null;
+}
+
+export interface CustomModalProps {
+  visible: boolean;
+  onClose: () => void;
+  children: React.ReactNode;
+  animationType?: 'slide' | 'fade' | 'none';
+  transparent?: boolean;
+  style?: CustomModalStyle;
+  showCloseButton?: boolean;
 }

@@ -2,19 +2,21 @@ import {
   Area,
   Avatar,
   InfoArea,
+  Localidade,
   UserEstabelecimento,
   VerPerfilButton,
-  VerPerfilButtonText,
-  Localidade
+  VerPerfilButtonText
 } from '@/components/EstabelecimentoItem/style';
-import { Stars } from '@/components/Stars'
-import {EstabelecimentoPops} from "@/model/interfaces/general-interfaces"
-import { useNavigation } from '@react-navigation/native';
+import { Stars } from '@/components/Stars';
+import { useEstabelecimentoAvatarUri } from '@/hooks/useAvatarUri';
+import { EstabelecimentoPops } from "@/model/interfaces/general-interfaces";
 import { PreloadScreenProp } from '@/types/general-type';
-import { API_BASE_URL, ENDPOINT_BASE_URL } from '@env';
+import { useNavigation } from '@react-navigation/native';
 
 const EstabelecimentoItem: React.FC<EstabelecimentoPops> = ({estabelecimento, ...pros}) => {
-const navigation = useNavigation<PreloadScreenProp>();
+  
+  const navigation = useNavigation<PreloadScreenProp>();
+  const avatarUri = useEstabelecimentoAvatarUri(estabelecimento);
 
   const handlePress = () => {
     navigation.navigate('ProviderProfile', { estabelecimento } as any);
@@ -22,7 +24,7 @@ const navigation = useNavigation<PreloadScreenProp>();
 
   return (
     <Area onPress={handlePress}>
-      <Avatar source = {{uri: `${API_BASE_URL}${ENDPOINT_BASE_URL}/${estabelecimento.uuidStorage}/avatar/${estabelecimento.avatar}`}} />
+      <Avatar source={{ uri: avatarUri }} />
       <InfoArea>
         <UserEstabelecimento>{estabelecimento.nome}</UserEstabelecimento>
         <Stars stars={estabelecimento.star} showNumber={true} />

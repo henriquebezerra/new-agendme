@@ -5,6 +5,7 @@ import Testimonials from '@/components/Testimonials';
 import { ToastApp } from '@/components/Toast';
 import { BackIcon, FavoriteIcon, FavoriteIconActive, StoreEmptyIcon, UserFeatherIcon } from '@/constants/icons';
 import { UserContext } from '@/contexts/UserContext';
+import { useEstabelecimentoAvatarUri } from '@/hooks/useAvatarUri';
 import { Estabelecimento } from "@/model/estabelecimento.model";
 import { FavoritoResponse } from '@/model/favorito-response.model';
 import { FileObject } from '@/model/interfaces/general-interfaces';
@@ -26,6 +27,7 @@ import {
   UserInfo,
   UserInfoArea,
   UserInfoName,
+  Container
 } from '@/screens/ProviderProfile/style';
 import { PreloadScreenProp } from "@/types/general-type";
 import { API_BASE_URL, ENDPOINT_BASE_URL } from '@env';
@@ -34,7 +36,6 @@ import { useContext, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { FlatList } from 'react-native';
 import Swiper from 'react-native-swiper';
-import { Container } from "./style";
 
 
 const Profile = () => {
@@ -49,6 +50,7 @@ const Profile = () => {
   const [isFavorite, setIsFavorite] = useState<boolean>(false);
   const service = new ProviderProfileAction();
   const { t } = useTranslation();
+  const avatarUri = useEstabelecimentoAvatarUri(estabelecimento);
 
 
   const fileObjectsSwiper = () => {
@@ -124,14 +126,14 @@ const Profile = () => {
         </Swiper>
         <PageBody pageBodyHeight={fileSwiper.length ? 560 : 650}>
           <UserInfoArea>
-            <UserAvatar source={{ uri: `${API_BASE_URL}${ENDPOINT_BASE_URL}${estabelecimento.uuidStorage}/avatar/${estabelecimento.avatar}` }} />
+            <UserAvatar source={{ uri: avatarUri }} />
             <UserInfo>
               <UserInfoName>{estabelecimento.nome}</UserInfoName>
               <Stars stars={estabelecimento.star} showNumber />
             </UserInfo>
             <UserFavButton onPress={handleFavorite}>
               {isFavorite ? 
-                <FavoriteIconActive size={24} color='#63C2D1' />
+                <FavoriteIconActive size={24} color='#e97286ff' />
               : <FavoriteIcon size={24} color='#999999'/>
               }  
             </UserFavButton>
@@ -149,7 +151,11 @@ const Profile = () => {
                     data={servicos}
                     keyExtractor={(item) => item.id.toString()}
                     renderItem={({ item, index }) => (
-                      <ServiceItem key={index} title={item.titulo} value={item.valor} servico={item} />
+                      <ServiceItem 
+                        key={index} 
+                        title={item.titulo} 
+                        servico={item}
+                        estabelecimento={estabelecimento}/>
                     )}
                     />
               </ServiceArea>

@@ -21,13 +21,10 @@ export const EmptyText = styled.Text`
   font-weight: 500;
 `;
 
-
-export const TextField = styled.Text`
-  color: '#268596';
-  margin-left: 10px;
-  font-size: 16px;
+export const ContentModal = styled.View`
+  padding: 20px;
+  maxe-height: 250px;
 `;
-
 
 export const styles = StyleSheet.create({
  

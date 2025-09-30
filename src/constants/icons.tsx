@@ -77,3 +77,7 @@ export const StoreEmptyIcon = ({size = 24, color = 'black'}) => {
 export const NextIcon = ({size = 24, color = 'black'}) => {
   return <AntDesign name="right" size={size} color={color} />
 }
+
+export const ExpandedIcon = ({size = 24, color = 'black'}) => {
+  return <AntDesign name="down" size={size} color={color} />
+}
