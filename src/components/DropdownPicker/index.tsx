@@ -1,67 +1,58 @@
+import CustomModal from '@/components/Modal';
 import { UserIcon } from '@/constants/icons';
-import React, { useState } from 'react';
-import { Modal, TouchableOpacity, Text, FlatList, View, ScrollView } from 'react-native';
-import { 
-  Container, 
-  OptionContainer,
-  AriaModalContent,
-  AriaModalContainer,
-  styles,
-  EmptyText,
-  EmptyOptionView
-} from './style';
+import { useModal } from '@/hooks/useModal';
 import { OptionsType } from '@/types/general-type';
+import React from 'react';
+import { FlatList, Text, TouchableOpacity, View } from 'react-native';
+import {
+  Container,
+  EmptyOptionView,
+  EmptyText,
+  styles
+} from './style';
+import { useTranslation } from 'react-i18next';
 
-interface DropdownPicker {
+interface DropdownPickerProps {
   options: OptionsType[];
   setSelectedValue: (value: OptionsType) => void;
   placeholder: string;
 }
 
-const DropdownPicker: React.FC<DropdownPicker> = ({options, setSelectedValue, placeholder }) => {
+const DropdownPicker: React.FC<DropdownPickerProps> = ({options, setSelectedValue, placeholder }) => {
 
-  const [modalVisible, setModalVisible] = useState(false);
+  const { isVisible, openModal, closeModal } = useModal();
+  const { t } = useTranslation();
     
   const handleOptionSelect = (value: OptionsType) => {
     setSelectedValue(value);
-    setModalVisible(false);
+    closeModal();
   };
 
   return (
     <View>
-      <TouchableOpacity onPress={() => setModalVisible(true)}>
+      <TouchableOpacity onPress={() => openModal()}>
         <Container>
           <UserIcon />
           <Text style={styles.inputText}>{placeholder}</Text>
         </Container>
       </TouchableOpacity>
 
-      <Modal 
-        visible={modalVisible} 
-        animationType="slide" 
-        transparent={true}>
-        <AriaModalContent 
-          onPress={() => setModalVisible(false)}>
-          <AriaModalContainer>
-            <OptionContainer>
-              {options.length ? 
-              <FlatList
-                data={options}
-                keyExtractor={(item) => item.value}
-                renderItem={({ item }) => (
-                  <TouchableOpacity onPress={() => handleOptionSelect(item)}>
-                    <Text style={styles.optionText}>{item.label}</Text>
-                  </TouchableOpacity>
-                  )}
-                /> : 
-                <EmptyOptionView>
-                  <EmptyText>Nenhuma opção disponível no momento</EmptyText>
-                </EmptyOptionView>
-              }
-            </OptionContainer>
-          </AriaModalContainer>
-        </AriaModalContent>
-      </Modal>
+      <CustomModal visible={isVisible} onClose={closeModal}>
+        {options.length ? 
+          <FlatList
+            data={options}
+            keyExtractor={(item) => item.value}
+            renderItem={({ item }) => (
+              <TouchableOpacity onPress={() => handleOptionSelect(item)}>
+                <Text style={styles.optionText}>{item.label}</Text>
+              </TouchableOpacity>
+              )}
+            /> : 
+            <EmptyOptionView>
+              <EmptyText>{t('emptyModalDescription')}</EmptyText>
+            </EmptyOptionView>
+          }
+      </CustomModal>
     </View>
   );
 };

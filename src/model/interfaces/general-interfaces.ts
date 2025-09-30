@@ -1,4 +1,5 @@
 import {Estabelecimento} from "@/model/estabelecimento.model";
+import { Servico } from "@/model/servico.model";
 
 export interface Validation {
   message: string;
@@ -22,6 +23,7 @@ export interface FileObject {
 export interface ServiceItemProps {
   title: string;
   value: number;
+  servico: Servico;
 }
 
 export interface TestimonialsPops {

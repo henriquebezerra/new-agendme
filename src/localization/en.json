@@ -16,5 +16,6 @@
   "selectYourProfile":"Select your profile",
   "signUpButton": "Sign up",
   "doYouHaveAccountAlready":"Do you already have an account?",
-  "signInScreen": "Sign in"
+  "signInScreen": "Sign in",
+  "emptyModalDescription": "No options available"
 }

@@ -149,7 +149,7 @@ const Profile = () => {
                     data={servicos}
                     keyExtractor={(item) => item.id.toString()}
                     renderItem={({ item, index }) => (
-                      <ServiceItem key={index} title={item.titulo} value={item.valor} />
+                      <ServiceItem key={index} title={item.titulo} value={item.valor} servico={item} />
                     )}
                     />
               </ServiceArea>
