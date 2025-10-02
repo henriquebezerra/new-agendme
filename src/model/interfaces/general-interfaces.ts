@@ -40,7 +40,7 @@ export interface EmptyResultProps {
 
 export interface ScheduleProps {
   servico: Servico | null;
-  estabelecimento: Estabelecimento | null;
+  estabelecimento: Estabelecimento;
 }
 
 export interface CustomModalProps {
@@ -51,4 +51,10 @@ export interface CustomModalProps {
   transparent?: boolean;
   style?: CustomModalStyle;
   showCloseButton?: boolean;
+}
+
+export interface DayItem {
+  status: boolean;
+  weekDay: string;
+  day: number;
 }

@@ -1,6 +1,6 @@
 
 import { ExpandedIcon } from '@/constants/icons';
-import { Modal } from 'react-native';
+import { Keyboard, Modal, TouchableWithoutFeedback } from 'react-native';
 import { AriaModalContainer, AriaModalContent, CloseButton, ContentModal } from './style';
 import { CustomModalProps } from '@/model/interfaces/general-interfaces';
 
@@ -20,18 +20,22 @@ const CustomModal:React.FC<CustomModalProps> = (
       visible={visible}
       animationType={animationType}
       transparent={transparent}>
-      <AriaModalContent onPress={onClose}>
-        <AriaModalContainer>
-          <ContentModal style={style}>
-            {showCloseButton && 
-              <CloseButton onPress={onClose}>
-                <ExpandedIcon/>
-              </CloseButton>
-            }
-            {children}
-          </ContentModal>
-        </AriaModalContainer>
-      </AriaModalContent>
+      <TouchableWithoutFeedback onPress={onClose}>
+        <AriaModalContent>
+          <AriaModalContainer>
+            <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
+              <ContentModal style={style}>
+                {showCloseButton && 
+                  <CloseButton onPress={onClose}>
+                    <ExpandedIcon/>
+                  </CloseButton>
+                }
+                {children}
+              </ContentModal>
+            </TouchableWithoutFeedback>
+          </AriaModalContainer>
+        </AriaModalContent>
+      </TouchableWithoutFeedback>
     </Modal>
   );
 }
