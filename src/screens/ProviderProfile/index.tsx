@@ -150,6 +150,7 @@ const Profile = () => {
                     onRefresh={onRefresh}
                     data={servicos}
                     keyExtractor={(item) => item.id.toString()}
+                    style={{maxHeight: 320}}
                     renderItem={({ item, index }) => (
                       <ServiceItem 
                         key={index} 

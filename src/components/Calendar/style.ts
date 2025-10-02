@@ -38,3 +38,26 @@ export const DateNextArea = styled.TouchableOpacity`
   justify-content: flex-start;
   align-items: flex-start;
 `
+
+export const DateItem = styled.TouchableOpacity`
+  width: 45px;
+  justify-content: center;
+  border-radius: 10px;
+  align-items: center;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  
+`
+
+export const DateItemWeekDay = styled.Text`
+  font-size: 16px;
+  font-weight: bold;
+  color: #000000;
+  border-bottom-width: 1px;
+`
+
+export const DateItemNumber = styled.Text`
+  font-size: 16px;
+  font-weight: bold;
+  color: #000;
+`

@@ -1,9 +1,9 @@
 import { BackIcon, NextIcon } from "@/constants/icons";
-import { CalendarItem, DateInfo, DateNextArea, DatePrevArea, DateTitle, DateTitleArea } from "./style";
-import { useEffect, useState } from "react";
-import { FlatList, Text } from "react-native";
 import { DayItem } from "@/model/interfaces/general-interfaces";
+import { useEffect, useState } from "react";
+import { FlatList } from "react-native";
 import { CalendarActions } from "./actions";
+import { CalendarItem, DateInfo, DateItem, DateItemNumber, DateItemWeekDay, DateNextArea, DatePrevArea, DateTitle, DateTitleArea } from "./style";
 
 const months = [
   'January', 
@@ -47,6 +47,7 @@ const Calendar:React.FC<CalendarProps> = ({
 }) => {
 
   const [listDays, setListDays] = useState<DayItem[]>([]);
+  const [listHours, setListHours] = useState<string[]>([]);
   const action = CalendarActions.getInstance();
 
   const handlePrevMonth = () => {
@@ -73,9 +74,22 @@ const Calendar:React.FC<CalendarProps> = ({
   }, []);
   
   const fetchAvailability = async () => {
-    const newListDays = await action.verifyAvailability(selectedYear, selectedMonth, idEstabelecimento);
-    setListDays(newListDays);
+    if(selectedMonth !== 0 && selectedMonth !== 0){
+      const newListDays = await action.verifyAvailability(selectedYear, selectedMonth, idEstabelecimento);
+      setListDays(newListDays);
+      setSelectedDay(1);
+      setListHours([]);
+      setSelectedHour(null);
+    }
   };
+
+  const defineDaySelected = (item:DayItem) => {
+    if(item.status && (selectedDay !== item.day)){
+      setSelectedDay(item.day);
+    } else {
+      setSelectedDay(0);
+    }
+  }
 
   useEffect(() => {
     fetchAvailability();
@@ -94,14 +108,25 @@ const Calendar:React.FC<CalendarProps> = ({
           <NextIcon size={25}/>
         </DateNextArea> 
       </DateInfo>
-      <FlatList 
-        horizontal
+      <FlatList
+        key={listDays.length}
+        horizontal={true}
         showsHorizontalScrollIndicator={false}
-        data={days}
+        data={listDays}
         keyExtractor={(_, index) => index.toString()}
-        renderItem={({ item }) => ( 
-
-          <Text>{item}</Text>
+        initialNumToRender={7}
+        windowSize={5}
+        renderItem={({ item, index }) => ( 
+          <DateItem 
+            key={index}
+            onPress={() => defineDaySelected(item)}
+            style={{
+              opacity : item.status ? 1 : 0.5,
+              backgroundColor: (item.day === selectedDay && item.status) && '#4EADBE'
+              }}>
+            <DateItemWeekDay>{item.weekDay}</DateItemWeekDay>
+            <DateItemNumber>{item.day}</DateItemNumber>
+          </DateItem>
         )}
       />
 

@@ -29,7 +29,7 @@ export class CalendarActions {
       let weekDay = date.getDay().toString();
       month = Number(month) < 10 ? '0' + month : month;
       weekDay = Number(weekDay) < 10 ? '0' + weekDay : weekDay;
-      let selDate =  year + '-' + month + '-' + day;
+      let selDate =  `${year}-${month}-${day}`;
       let isAvailable = availabilities.some(item => item.dataDisponivel === selDate);
 
       newListDays.push({
