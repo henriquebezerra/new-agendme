@@ -1,9 +1,9 @@
+import { StyleSheet } from 'react-native';
 import styled from 'styled-components/native';
 
 export const ScheduleBody = styled.View`
   border-top-left-radius: 20px;
   border-top-right-radius: 20px;
-  min-height: 390px;
   padding: 10px 20px 40px 20px;
 `
 
@@ -37,7 +37,6 @@ export const ServiceInfo = styled.View`
   justify-content: space-between;
 `
 
-
 export const ServiceName = styled.Text`
   font-size: 16px;
   font-weight: bold;
@@ -67,3 +66,9 @@ export const FinishButtonText = styled.Text`
   font-weight: bold;
   text-align: center;
 `
+
+export const styles = StyleSheet.create({
+  flatContainer: {
+    maxHeight: 390
+  }
+});
