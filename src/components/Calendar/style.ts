@@ -1,4 +1,5 @@
 import styled from 'styled-components/native'
+import { StyleSheet } from 'react-native';
 
 export const CalendarItem = styled.View`
   background-color: #FFFFFF;
@@ -61,3 +62,15 @@ export const DateItemNumber = styled.Text`
   font-weight: bold;
   color: #000;
 `
+
+export const styles = StyleSheet.create({
+ 
+  selectedWeek: {
+    color: '#FFFFFF',
+    borderBottomColor: '#FFFFFF'
+  },
+
+  selectedDay: {
+    color: '#FFFFFF',
+  }
+});

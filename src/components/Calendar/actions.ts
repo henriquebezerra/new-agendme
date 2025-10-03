@@ -5,7 +5,6 @@ export class CalendarActions {
 
   private static instance: CalendarActions;
   private disService: DisponibilidadeApi;
-  private readonly days = [ 'Sun',  'Mon',  'Tue',  'Wed', 'Thu', 'Fri', 'Sat' ];
 
   private constructor() {
     this.disService = DisponibilidadeApi.getInstance();
@@ -18,7 +17,7 @@ export class CalendarActions {
     return CalendarActions.instance;
   }
 
-  public async verifyAvailability(selectedYear: number, selectedMonth: number, idEstabelecimento: number): Promise<DayItem[]> {
+  public async verifyAvailability(selectedYear: number, selectedMonth: number, idEstabelecimento: number, days:string[]): Promise<DayItem[]> {
     let daysInMonth = new Date(selectedYear, selectedMonth + 1, 0).getDate();
     let newListDays: DayItem[] = [];
     const availabilities = await this.disService.getDisponibilidade(idEstabelecimento);
@@ -34,7 +33,7 @@ export class CalendarActions {
 
       newListDays.push({
         status: isAvailable,
-        weekDay: this.days[date.getDay()],
+        weekDay: days[date.getDay()],
         day: day
       } as DayItem);
     }

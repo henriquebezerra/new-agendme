@@ -18,5 +18,12 @@
   "doYouHaveAccountAlready":"Do you already have an account?",
   "signInScreen": "Sign in",
   "emptyModalDescription": "No options available",
-  "finishScheduleButton": "Finish scheduling"
+  "finishScheduleButton": "Finish scheduling",
+  "calendar": {
+    "monthNames": [
+      "January", "February", "March", "April", "May", "June",
+      "July", "August", "September", "October", "November", "December"
+    ],
+    "dayAbbreviations": ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]
+  }
 }

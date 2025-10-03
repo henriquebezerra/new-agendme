@@ -1,38 +1,11 @@
 import { BackIcon, NextIcon } from "@/constants/icons";
-import { DayItem } from "@/model/interfaces/general-interfaces";
+import { CalendarProps, DayItem } from "@/model/interfaces/general-interfaces";
 import { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { FlatList } from "react-native";
 import { CalendarActions } from "./actions";
-import { CalendarItem, DateInfo, DateItem, DateItemNumber, DateItemWeekDay, DateNextArea, DatePrevArea, DateTitle, DateTitleArea } from "./style";
+import { CalendarItem, DateInfo, DateItem, DateItemNumber, DateItemWeekDay, DateNextArea, DatePrevArea, DateTitle, DateTitleArea, styles } from "./style";
 
-const months = [
-  'January', 
-  'February', 
-  'March', 
-  'April', 
-  'May', 
-  'June',
-  'July',
-  'August',
-  'September',  
-  'October',
-  'November',
-  'December'
-];
-
-const days = [ 'Sun',  'Mon',  'Tue',  'Wed', 'Thu', 'Fri', 'Sat' ];
-
-interface CalendarProps {
-  selectedYear: number;
-  selectedMonth: number;
-  selectedDay: number;
-  selectedHour: string | null;
-  idEstabelecimento: number;
-  setSelectedYear: (year: number) => void;
-  setSelectedMonth: (month: number) => void;
-  setSelectedDay: (day: number) => void;
-  setSelectedHour: (hour: string | null) => void;
-}
 
 const Calendar:React.FC<CalendarProps> = ({
   selectedYear,
@@ -49,21 +22,24 @@ const Calendar:React.FC<CalendarProps> = ({
   const [listDays, setListDays] = useState<DayItem[]>([]);
   const [listHours, setListHours] = useState<string[]>([]);
   const action = CalendarActions.getInstance();
+  const [ t ] = useTranslation();
+  const months = t('calendar.monthNames', { returnObjects: true }) as string[];
+  const days = t('calendar.dayAbbreviations', { returnObjects: true }) as string[];
 
   const handlePrevMonth = () => {
-    let customDate = new Date(selectedYear, selectedMonth, selectedDay);
+    let customDate = new Date(selectedYear, selectedMonth, 1);
     customDate.setMonth(customDate.getMonth() - 1);
     setSelectedYear(customDate.getFullYear());
     setSelectedMonth(customDate.getMonth());
-    setSelectedDay(1);
+    setSelectedDay(0);
   }
 
   const handleNextMonth = () => {
-    let customDate = new Date(selectedYear, selectedMonth, selectedDay);
+    let customDate = new Date(selectedYear, selectedMonth, 1);
     customDate.setMonth(customDate.getMonth() + 1);
     setSelectedYear(customDate.getFullYear());
     setSelectedMonth(customDate.getMonth());
-    setSelectedDay(1);
+    setSelectedDay(0);
   }
 
   useEffect(() => {
@@ -74,10 +50,10 @@ const Calendar:React.FC<CalendarProps> = ({
   }, []);
   
   const fetchAvailability = async () => {
-    if(selectedMonth !== 0 && selectedMonth !== 0){
-      const newListDays = await action.verifyAvailability(selectedYear, selectedMonth, idEstabelecimento);
+    if(selectedMonth !== 0 || selectedYear !== 0){
+      const newListDays = await action.verifyAvailability(selectedYear, selectedMonth, idEstabelecimento, days);
       setListDays(newListDays);
-      setSelectedDay(1);
+      setSelectedDay(0);
       setListHours([]);
       setSelectedHour(null);
     }
@@ -86,7 +62,7 @@ const Calendar:React.FC<CalendarProps> = ({
   const defineDaySelected = (item:DayItem) => {
     if(item.status && (selectedDay !== item.day)){
       setSelectedDay(item.day);
-    } else {
+    } if (item.status === true && (selectedDay === item.day)){
       setSelectedDay(0);
     }
   }
@@ -124,12 +100,13 @@ const Calendar:React.FC<CalendarProps> = ({
               opacity : item.status ? 1 : 0.5,
               backgroundColor: (item.day === selectedDay && item.status) && '#4EADBE'
               }}>
-            <DateItemWeekDay>{item.weekDay}</DateItemWeekDay>
-            <DateItemNumber>{item.day}</DateItemNumber>
+            <DateItemWeekDay style={(item.day === selectedDay) && styles.selectedWeek}>
+              {item.weekDay}
+            </DateItemWeekDay>
+            <DateItemNumber style={(item.day === selectedDay) && styles.selectedDay}>{item.day}</DateItemNumber>
           </DateItem>
         )}
       />
-
     </CalendarItem>
   );
 }

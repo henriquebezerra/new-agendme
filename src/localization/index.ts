@@ -30,7 +30,7 @@ i18next
     fallbackLng: 'pt',
 
     // Idioma inicial
-    lng: 'en',
+    lng: deviceLanguage,
 
     // Configuração para React, que já faz o escape de valores
     interpolation: {

@@ -29,8 +29,8 @@ const ServiceItem: React.FC<ServiceItemProps> = ({
   const { formattedValue } = useCurrency(servico?.valor);
 
   const handleSchedule = (serv:Servico) => {
-   setSelectedService(serv);
-   openModal();
+    setSelectedService(serv);
+    openModal();
   }
 
   return (

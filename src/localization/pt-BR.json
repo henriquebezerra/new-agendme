@@ -18,6 +18,13 @@
   "doYouHaveAccountAlready":"Já possui uma conta?",
   "signInScreen": "Faça login",
   "emptyModalDescription": "Nenhuma opção disponível no momento",
-  "finishScheduleButton": "Finalizar agendamento"
+  "finishScheduleButton": "Finalizar agendamento",
+  "calendar": {
+    "monthNames": [
+      "Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho",
+      "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"
+    ],
+    "dayAbbreviations": ["Dom", "Seg", "Ter", "Qua", "Qui", "Sex", "Sáb"]
+  }
 
 }

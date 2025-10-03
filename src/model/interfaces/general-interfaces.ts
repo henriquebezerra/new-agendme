@@ -58,3 +58,15 @@ export interface DayItem {
   weekDay: string;
   day: number;
 }
+
+export interface CalendarProps {
+  selectedYear: number;
+  selectedMonth: number;
+  selectedDay: number;
+  selectedHour: string | null;
+  idEstabelecimento: number;
+  setSelectedYear: (year: number) => void;
+  setSelectedMonth: (month: number) => void;
+  setSelectedDay: (day: number) => void;
+  setSelectedHour: (hour: string | null) => void;
+}
