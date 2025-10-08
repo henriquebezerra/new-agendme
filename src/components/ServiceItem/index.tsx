@@ -7,15 +7,14 @@ import {
   ServicePrice
 } from '@/components/ServiceItem/style';
 
-import { useModal } from '@/hooks/useModal';
-import { ServiceItemProps } from '@/model/interfaces/general-interfaces';
-import { Servico } from '@/model/servico.model';
-import { CURRENCY, LOCALE_LANGUAGE } from '@env';
-import { useState } from 'react';
-import { useTranslation } from 'react-i18next';
 import CustomModal from '@/components/Modal';
 import Schedule from '@/components/Schedule';
 import { useCurrency } from '@/hooks/useCurrency';
+import { useModal } from '@/hooks/useModal';
+import { ServiceItemProps } from '@/model/interfaces/general-interfaces';
+import { Servico } from '@/model/servico.model';
+import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 
 const ServiceItem: React.FC<ServiceItemProps> = ({
   title, 

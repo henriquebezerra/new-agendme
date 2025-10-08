@@ -16,7 +16,7 @@ import {
 } from "./style";
 import { ScheduleProps } from "@/model/interfaces/general-interfaces";
 import Calendar from "@/components/Calendar";
-import { useEffect, useState } from "react";
+import { use, useEffect, useState } from "react";
 import { FlatList } from "react-native";
 import { styles } from "./style";
 import Hour from "@/components/Hour";
@@ -32,6 +32,7 @@ const Schedule:React.FC<ScheduleProps> = ({
   const avatarUri = useEstabelecimentoAvatarUri(estabelecimento);
   const { formattedValue } = useCurrency(servico?.valor || 0);
   const [availabilities, setAvailabilities] = useState<Disponibilidade[]>([]);
+  const [listHours, setListHours] = useState<string[]>([]);
   const [selectedYear, setSelectedYear] = useState<number>(0);
   const [selectedMonth, setSelectedMonth] = useState<number>(0);
   const [selectedDay, setSelectedDay] = useState<number>(0);
@@ -49,13 +50,24 @@ const Schedule:React.FC<ScheduleProps> = ({
   ];
 
   const getAvailability = async () => {
-    const disponibilidade = await action.getDisponibilidade(estabelecimento.id);
+    const disponibilidade = await action.getDisponibilidade(estabelecimento.id, servico!.id);
     setAvailabilities(disponibilidade);
+  }
+
+  const handleListHours = () => {
+    if(availabilities.length > 0){
+      const listHours = action.bringHoursByDay(selectedDay, selectedMonth, selectedYear, availabilities);
+      setListHours(listHours);
+    }
   }
 
   useEffect(() => { 
     getAvailability();
   }, []);
+
+  useEffect(() => {
+    handleListHours();
+  }, [ selectedDay ]);
 
   const renderScheduleItem = ({ item }: { item: any }) => {
     switch (item.type) {
@@ -98,12 +110,12 @@ const Schedule:React.FC<ScheduleProps> = ({
         );
       case 'hour':
         return (
-          <ScheduleItem>
-            <Hour />
-
-          </ScheduleItem>
+          <>
+            {listHours.length > 0 && (
+              <Hour hours={listHours} />
+            )}
+          </>
         );
-        
       
       case 'finish':
         return (

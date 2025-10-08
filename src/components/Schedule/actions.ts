@@ -19,9 +19,28 @@ export class ScheduleActions {
   }
 
 
-  public getDisponibilidade(idEstabelecimento:number): Promise<Disponibilidade[]>{
-    return this.disService.getDisponibilidade(idEstabelecimento);
+  public getDisponibilidade(idEstabelecimento:number, idServico:number): Promise<Disponibilidade[]>{
+    return this.disService.getDisponibilidade(idEstabelecimento, idServico);
   }
 
+  public bringHoursByDay(selectedDay:number, selectedMonth:number, selectedYear:number, availabilities: Disponibilidade[]): string[] {
+    if(selectedDay > 0){
+      let day = new Date();
+      day.setFullYear(selectedYear);
+      day.setMonth(selectedMonth);
+      day.setDate(selectedDay);
+      
+      const availableHours = availabilities.filter(item => item.dataDisponivel === day.toISOString().split('T')[0]);
+      let listHours: string[] = [];
+      if (availableHours) {
+        listHours = availableHours.map(item => {
+          return item.hours;
+        }).flat();
+      }
+      return listHours;
+    }
 
+    return [];
+
+  }
 }

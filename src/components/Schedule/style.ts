@@ -69,6 +69,6 @@ export const FinishButtonText = styled.Text`
 
 export const styles = StyleSheet.create({
   flatContainer: {
-    maxHeight: 390
+    maxHeight: 450
   }
 });

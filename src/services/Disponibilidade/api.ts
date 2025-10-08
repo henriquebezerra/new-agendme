@@ -6,8 +6,8 @@ export class DisponibilidadeApi {
  
   private constructor() {}
 
-  public async getDisponibilidade(idEstabelecimento:number):Promise<Disponibilidade[]>{
-      const response = await apiClient.get(`/disponibilidade/estabelecimento/${idEstabelecimento}`);
+  public async getDisponibilidade(idEstabelecimento:number, idServico: number):Promise<Disponibilidade[]>{
+      const response = await apiClient.get(`/disponibilidade/estabelecimento/${idEstabelecimento}/servico/${idServico}`);
       return response.data;
   }
 

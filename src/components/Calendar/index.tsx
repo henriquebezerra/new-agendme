@@ -20,7 +20,6 @@ const Calendar:React.FC<CalendarProps> = ({
 }) => {
 
   const [listDays, setListDays] = useState<DayItem[]>([]);
-  const [listHours, setListHours] = useState<string[]>([]);
   const action = CalendarActions.getInstance();
   const [ t ] = useTranslation();
   const months = t('calendar.monthNames', { returnObjects: true }) as string[];
@@ -54,7 +53,6 @@ const Calendar:React.FC<CalendarProps> = ({
       const newListDays = await action.verifyAvailability(selectedYear, selectedMonth, days, availabilities);
       setListDays(newListDays);
       setSelectedDay(0);
-      setListHours([]);
       setSelectedHour(null);
     }
   };
