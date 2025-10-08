@@ -26,9 +26,10 @@ export class CalendarActions {
       let year = date.getFullYear().toString();
       let month = (date.getMonth() + 1).toString();
       let weekDay = date.getDay().toString();
+      let dayStr = day < 10 ? '0' + day.toString() : day.toString();
       month = Number(month) < 10 ? '0' + month : month;
       weekDay = Number(weekDay) < 10 ? '0' + weekDay : weekDay;
-      let selDate =  `${year}-${month}-${day}`;
+      let selDate =  `${year}-${month}-${dayStr}`;
       let isAvailable = availabilities.some(item => item.dataDisponivel === selDate);
 
       newListDays.push({
