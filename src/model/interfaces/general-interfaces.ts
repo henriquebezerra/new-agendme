@@ -1,6 +1,7 @@
 import {Estabelecimento} from "@/model/estabelecimento.model";
 import { Servico } from "@/model/servico.model";
 import { CustomModalStyle } from "@/types/general-type";
+import { Disponibilidade } from "@/model/disponibilidade.model";
 
 export interface Validation {
   message: string;
@@ -64,7 +65,7 @@ export interface CalendarProps {
   selectedMonth: number;
   selectedDay: number;
   selectedHour: string | null;
-  idEstabelecimento: number;
+  availabilities: Disponibilidade[];
   setSelectedYear: (year: number) => void;
   setSelectedMonth: (month: number) => void;
   setSelectedDay: (day: number) => void;

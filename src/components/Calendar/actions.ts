@@ -1,14 +1,12 @@
+import { Disponibilidade } from "@/model/disponibilidade.model";
 import { DayItem } from "@/model/interfaces/general-interfaces";
 import { DisponibilidadeApi } from "@/services/Disponibilidade/api";
 
 export class CalendarActions {
 
   private static instance: CalendarActions;
-  private disService: DisponibilidadeApi;
 
-  private constructor() {
-    this.disService = DisponibilidadeApi.getInstance();
-  }
+  private constructor() { }
 
   public static getInstance(): CalendarActions {
     if (!CalendarActions.instance) {
@@ -17,10 +15,13 @@ export class CalendarActions {
     return CalendarActions.instance;
   }
 
-  public async verifyAvailability(selectedYear: number, selectedMonth: number, idEstabelecimento: number, days:string[]): Promise<DayItem[]> {
+  public async verifyAvailability(
+    selectedYear: number, 
+    selectedMonth: number, 
+    days:string[],
+    availabilities: Disponibilidade[]): Promise<DayItem[]> {
     let daysInMonth = new Date(selectedYear, selectedMonth + 1, 0).getDate();
     let newListDays: DayItem[] = [];
-    const availabilities = await this.disService.getDisponibilidade(idEstabelecimento);
     for(let day = 1; day <= daysInMonth; day++) {
       let date = new Date(selectedYear, selectedMonth, day);
       let year = date.getFullYear().toString();
