@@ -13,6 +13,7 @@ export const TimeItem = styled.TouchableOpacity`
   justify-content: center;
   align-items: center;
   border-radius: 10px;
+  margin: 0 5px;
 `;
 
 export const TimeItemText = styled.Text`

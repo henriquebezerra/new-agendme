@@ -37,9 +37,10 @@ const Schedule:React.FC<ScheduleProps> = ({
   const [selectedMonth, setSelectedMonth] = useState<number>(0);
   const [selectedDay, setSelectedDay] = useState<number>(0);
   const [selectedHour, setSelectedHour] = useState<string | null>(null);
+  const [ buttonDisabled, setButtonDisabled] = useState<boolean>(true);
   const { t } = useTranslation();
   const action = ScheduleActions.getInstance();
-
+  
 
   const scheduleItems = [
     { id: 'provider', type: 'provider' },
@@ -68,6 +69,15 @@ const Schedule:React.FC<ScheduleProps> = ({
   useEffect(() => {
     handleListHours();
   }, [ selectedDay ]);
+
+  useEffect(() => {
+    const isFormComplete = selectedYear > 0 && 
+                          selectedMonth >= 0 && 
+                          selectedDay > 0 && 
+                          selectedHour !== null;
+    
+    setButtonDisabled(!isFormComplete);
+  }, [selectedYear, selectedMonth, selectedDay, selectedHour]);
 
   const renderScheduleItem = ({ item }: { item: any }) => {
     switch (item.type) {
@@ -100,26 +110,29 @@ const Schedule:React.FC<ScheduleProps> = ({
             selectedYear={selectedYear} 
             selectedMonth={selectedMonth} 
             selectedDay={selectedDay} 
-            selectedHour={selectedHour}
             availabilities={availabilities}
             setSelectedYear={setSelectedYear} 
             setSelectedMonth={setSelectedMonth} 
             setSelectedDay={setSelectedDay} 
-            setSelectedHour={setSelectedHour}
           />
         );
       case 'hour':
         return (
           <>
             {listHours.length > 0 && (
-              <Hour hours={listHours} />
+              <Hour 
+                hours={listHours}
+                setSelectedHour={setSelectedHour}
+                selectedHour={selectedHour}/>
             )}
           </>
         );
       
       case 'finish':
         return (
-          <FinishScheduleButton>
+          <FinishScheduleButton 
+            disabled={buttonDisabled}  
+            style={{ opacity: buttonDisabled ? 0.5 : 1 }}>
             <FinishButtonText>{t("finishScheduleButton")}</FinishButtonText>
           </FinishScheduleButton>
         );

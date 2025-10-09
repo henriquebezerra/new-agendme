@@ -64,10 +64,14 @@ export interface CalendarProps {
   selectedYear: number;
   selectedMonth: number;
   selectedDay: number;
-  selectedHour: string | null;
   availabilities: Disponibilidade[];
   setSelectedYear: (year: number) => void;
   setSelectedMonth: (month: number) => void;
   setSelectedDay: (day: number) => void;
+}
+
+export interface HourProps {
+  hours: string[];
+  selectedHour: string | null;
   setSelectedHour: (hour: string | null) => void;
 }
