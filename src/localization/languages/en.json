@@ -27,5 +27,7 @@
     "dayAbbreviations": ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]
   },
   "scheduleSuccess": "Scheduling completed successfully!",
-  "scheduleTitleToast": "Scheduling"
+  "scheduleTitleToast": "Scheduling",
+  "registerEstablishment": "Register establishment",
+  "registerService": "Register service"
 }

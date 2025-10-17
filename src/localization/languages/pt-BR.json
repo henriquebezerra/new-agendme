@@ -27,5 +27,7 @@
     "dayAbbreviations": ["Dom", "Seg", "Ter", "Qua", "Qui", "Sex", "Sáb"]
   },
   "scheduleSuccess": "Agendamento realizado com sucesso!",
-  "scheduleTitleToast": "Agendamento"
+  "scheduleTitleToast": "Agendamento",
+  "registerEstablishment": "Cadastrar estabelecimento",
+  "registerService": "Cadastrar serviço"
 }

@@ -1,26 +1,27 @@
-import { LocationIcon, SearchIcon, CloseIcon } from "@/constants/icons";
-import { 
-  Container, 
-  HeaderArea, 
-  HeaderTitle,
-  SearchButton,
-  SearchArea,
-  SearchInput,
-  LocationFinder,
-  LoadingIcon,
-  EstabelecimentosArea,
-  ContentContainer
-} from "./style";
-import { useNavigation } from "@react-navigation/native";
-import { PreloadScreenProp } from "@/types/general-type";
-import { useEffect, useState } from "react";
-import { HomeActions } from "@/screens/Home/actions";
-import { Estabelecimento } from "@/model/estabelecimento.model";
-import EstabelecimentoItem from "@/components/EstabelecimentoItem";
 import { Alert } from "@/components/Alert";
-import { FlatList, Keyboard } from "react-native";
 import EmptyResult from "@/components/EmptyResult";
+import EstabelecimentoItem from "@/components/EstabelecimentoItem";
+import { CloseIcon, LocationIcon, SearchIcon } from "@/constants/icons";
+import { Estabelecimento } from "@/model/estabelecimento.model";
+import { HomeActions } from "@/screens/Home/actions";
+import { PreloadScreenProp } from "@/types/general-type";
+import { useNavigation } from "@react-navigation/native";
+import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
+import { FlatList, Keyboard } from "react-native";
+import {
+  Container,
+  ContentContainer,
+  EstabelecimentosArea,
+  HeaderArea,
+  HeaderTitle,
+  LoadingIcon,
+  LocationFinder,
+  SearchArea,
+  SearchButton,
+  SearchInput
+} from "./style";
+import DropdownMenu from "@/components/DropdownMenu";
 
 
 const Home = () => { 
@@ -31,7 +32,7 @@ const Home = () => {
   const [estabelecimentos, setEstabelecimentos ] = useState<Estabelecimento[]>();
   const [ refreshing, setRefreshing ] = useState(false);
   const { t } = useTranslation();
-  
+    
   const handleLocationFinder = () => {
     setEstabelecimentos([]);
     setLoading(true);
@@ -49,7 +50,7 @@ const Home = () => {
       setEstabelecimentos(response);
     }).catch(error => {
       Alert('Alerta', error.message, [{text: 'OK'}]);
-     }).finally(()=> {
+    }).finally(()=> {
       setLoading(false);
       setRefreshing(false);
     });
@@ -108,9 +109,9 @@ const Home = () => {
           }
         </EstabelecimentosArea>
       </ContentContainer>
+      <DropdownMenu />
     </Container>
   );
-
 }
 
 export default Home;
