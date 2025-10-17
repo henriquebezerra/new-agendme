@@ -1,10 +1,12 @@
-import { CURRENCY, LOCALE_LANGUAGE } from "@env";
+import { useDevicelocale } from "./useDeviceLocale";
 
 export const useCurrency = (valor: number | 0) => {
 
-  const formattedValue = new Intl.NumberFormat(LOCALE_LANGUAGE, {
+  const { languageTag, currencyCode } = useDevicelocale();
+
+  const formattedValue = new Intl.NumberFormat(languageTag, {
       style: 'currency',
-      currency: CURRENCY,
+      currency: currencyCode,
     }).format(valor);
 
     return {
