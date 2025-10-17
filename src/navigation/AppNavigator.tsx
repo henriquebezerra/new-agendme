@@ -29,7 +29,7 @@ export default function AppNavigator() {
           <Stack.Screen name="UserProfile" component={UserProfile}/>
         </Stack.Navigator>
       </NavigationContainer>
-      <Toast config={toastConfig}/>
+      <Toast config={toastConfig} />
     </>
   );
 }

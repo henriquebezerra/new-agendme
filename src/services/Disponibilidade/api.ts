@@ -3,7 +3,7 @@ import apiClient from "@/services/api";
 
 export class DisponibilidadeApi {
   private static instance: DisponibilidadeApi; 
- 
+
   private constructor() {}
 
   public async getDisponibilidade(idEstabelecimento:number, idServico: number):Promise<Disponibilidade[]>{

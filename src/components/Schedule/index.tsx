@@ -1,46 +1,49 @@
+import Calendar from "@/components/Calendar";
+import Hour from "@/components/Hour";
+import { UserContext } from "@/contexts/UserContext";
 import { useEstabelecimentoAvatarUri } from "@/hooks/useAvatarUri";
 import { useCurrency } from "@/hooks/useCurrency";
-import { useTranslation } from "react-i18next";
-import { 
-  FinishButtonText, 
-  FinishScheduleButton, 
-  ProviderAvatar, 
-  ProviderName, 
-  ScheduleBody, 
-  ScheduleInfo, 
-  ScheduleItem, 
-  ServiceDescription, 
-  ServiceInfo, 
-  ServiceName, 
-  ServicePrice 
-} from "./style";
-import { ScheduleProps } from "@/model/interfaces/general-interfaces";
-import Calendar from "@/components/Calendar";
-import { use, useEffect, useState } from "react";
-import { FlatList } from "react-native";
-import { styles } from "./style";
-import Hour from "@/components/Hour";
-import { ScheduleActions } from "./actions";
 import { Disponibilidade } from "@/model/disponibilidade.model";
+import { Hours, ItemHour, ScheduleProps } from "@/model/interfaces/general-interfaces";
+import { useContext, useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
+import { FlatList } from "react-native";
+import { ToastApp } from "../Toast";
+import { ScheduleActions } from "./actions";
 
+import {
+  FinishButtonText,
+  FinishScheduleButton,
+  ProviderAvatar,
+  ProviderName,
+  ScheduleBody,
+  ScheduleInfo,
+  ScheduleItem,
+  ServiceDescription,
+  ServiceInfo,
+  ServiceName,
+  ServicePrice,
+  styles
+} from "./style";
 
 const Schedule:React.FC<ScheduleProps> = ({
   servico,
-  estabelecimento
+  estabelecimento,
+  toggleModal
 }) => {
 
   const avatarUri = useEstabelecimentoAvatarUri(estabelecimento);
   const { formattedValue } = useCurrency(servico?.valor || 0);
+  const {state: context } = useContext(UserContext);
   const [availabilities, setAvailabilities] = useState<Disponibilidade[]>([]);
-  const [listHours, setListHours] = useState<string[]>([]);
+  const [listHours, setListHours] = useState<Hours[]>([]);
   const [selectedYear, setSelectedYear] = useState<number>(0);
   const [selectedMonth, setSelectedMonth] = useState<number>(0);
   const [selectedDay, setSelectedDay] = useState<number>(0);
-  const [selectedHour, setSelectedHour] = useState<string | null>(null);
-  const [ buttonDisabled, setButtonDisabled] = useState<boolean>(true);
+  const [selectedItemHour, setSelectedItemHour] = useState<ItemHour | null>(null);
+  const [buttonDisabled, setButtonDisabled] = useState<boolean>(true);
   const { t } = useTranslation();
   const action = ScheduleActions.getInstance();
-  
 
   const scheduleItems = [
     { id: 'provider', type: 'provider' },
@@ -50,6 +53,17 @@ const Schedule:React.FC<ScheduleProps> = ({
     { id: 'finish', type: 'finish' }
   ];
 
+  const finishSchedule = () => {
+    action.finishSchedule(selectedDay, selectedMonth, selectedYear, selectedItemHour!, estabelecimento.id, servico!.id, context.user.id || 0)
+    .then(() => {
+      toggleModal();
+      ToastApp('success', t('scheduleTitleToast'), t('scheduleSuccess'));
+    })
+    .catch((error) => {
+      ToastApp('error', t('scheduleTitleToast'), error.message);      
+    })
+  }
+
   const getAvailability = async () => {
     const disponibilidade = await action.getDisponibilidade(estabelecimento.id, servico!.id);
     setAvailabilities(disponibilidade);
@@ -57,9 +71,10 @@ const Schedule:React.FC<ScheduleProps> = ({
 
   const handleListHours = () => {
     if(availabilities.length > 0){
-      const listHours = action.bringHoursByDay(selectedDay, selectedMonth, selectedYear, availabilities);
-      setListHours(listHours);
+      const hours = action.bringHoursByDay(selectedDay, selectedMonth, selectedYear, availabilities);
+      setListHours(hours);
     }
+    setSelectedItemHour(null);
   }
 
   useEffect(() => { 
@@ -71,13 +86,9 @@ const Schedule:React.FC<ScheduleProps> = ({
   }, [ selectedDay ]);
 
   useEffect(() => {
-    const isFormComplete = selectedYear > 0 && 
-                          selectedMonth >= 0 && 
-                          selectedDay > 0 && 
-                          selectedHour !== null;
-    
+    const isFormComplete = selectedYear > 0 && selectedMonth >= 0 && selectedDay > 0 && selectedItemHour !== null;
     setButtonDisabled(!isFormComplete);
-  }, [selectedYear, selectedMonth, selectedDay, selectedHour]);
+  }, [selectedYear, selectedMonth, selectedDay, selectedItemHour]);
 
   const renderScheduleItem = ({ item }: { item: any }) => {
     switch (item.type) {
@@ -121,9 +132,9 @@ const Schedule:React.FC<ScheduleProps> = ({
           <>
             {listHours.length > 0 && (
               <Hour 
-                hours={listHours}
-                setSelectedHour={setSelectedHour}
-                selectedHour={selectedHour}/>
+                itemsHour={listHours}
+                setSelectedItemHour={setSelectedItemHour}
+                selectedItemHour={selectedItemHour}/>
             )}
           </>
         );
@@ -132,7 +143,9 @@ const Schedule:React.FC<ScheduleProps> = ({
         return (
           <FinishScheduleButton 
             disabled={buttonDisabled}  
-            style={{ opacity: buttonDisabled ? 0.5 : 1 }}>
+            style={{ opacity: buttonDisabled ? 0.5 : 1 }}
+            onPress={finishSchedule}
+            >
             <FinishButtonText>{t("finishScheduleButton")}</FinishButtonText>
           </FinishScheduleButton>
         );

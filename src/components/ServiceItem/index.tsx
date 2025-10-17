@@ -23,7 +23,7 @@ const ServiceItem: React.FC<ServiceItemProps> = ({
 }) => {
   
   const { t } = useTranslation();
-  const { isVisible, openModal, closeModal } = useModal();
+  const { isVisible, openModal, closeModal, toggleModal } = useModal();
   const [selectedService, setSelectedService] = useState<Servico | null>(null);
   const { formattedValue } = useCurrency(servico?.valor);
 
@@ -49,7 +49,7 @@ const ServiceItem: React.FC<ServiceItemProps> = ({
         onClose={closeModal} 
         style={{ backgroundColor: '#83D6E3' }}
         showCloseButton>
-        <Schedule servico={selectedService} estabelecimento={estabelecimento} />
+        <Schedule servico={selectedService} estabelecimento={estabelecimento} toggleModal={toggleModal}/>
       </CustomModal>
     </>
   );

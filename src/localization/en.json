@@ -25,5 +25,7 @@
       "July", "August", "September", "October", "November", "December"
     ],
     "dayAbbreviations": ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]
-  }
+  },
+  "scheduleSuccess": "Scheduling completed successfully!",
+  "scheduleTitleToast": "Scheduling"
 }

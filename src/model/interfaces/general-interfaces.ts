@@ -42,6 +42,7 @@ export interface EmptyResultProps {
 export interface ScheduleProps {
   servico: Servico | null;
   estabelecimento: Estabelecimento;
+  toggleModal: () => void;
 }
 
 export interface CustomModalProps {
@@ -71,7 +72,17 @@ export interface CalendarProps {
 }
 
 export interface HourProps {
+  itemsHour: Hours[];
+  selectedItemHour: ItemHour | null;
+  setSelectedItemHour: (itemHour: ItemHour | null) => void;
+}
+
+export interface Hours {
   hours: string[];
-  selectedHour: string | null;
-  setSelectedHour: (hour: string | null) => void;
+  intervalMin: number;
+}
+
+export interface ItemHour {
+  hour: string;
+  intervalMin: number;
 }

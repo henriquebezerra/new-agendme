@@ -1,37 +1,47 @@
 import { FlatList } from "react-native";
 import { HourItem, TimeItem, TimeItemText } from "./style";
-import { HourProps } from "@/model/interfaces/general-interfaces";
+import { HourProps, ItemHour } from "@/model/interfaces/general-interfaces";
+import { useMemo } from "react";
 
 const Hour: React.FC<HourProps> = ({ 
-  hours,
-  selectedHour,
-  setSelectedHour 
+  itemsHour,
+  selectedItemHour,
+  setSelectedItemHour
 }) => {
 
-  const handleSelectHour = (hour: string) => {
-    if(hour === selectedHour){
-      setSelectedHour(null);
+  const handleSelectHour = (itemHour: ItemHour) => {
+    if(itemHour.hour === selectedItemHour?.hour){
+      setSelectedItemHour(null);
       return;
     }
-
-    setSelectedHour(hour);
+    setSelectedItemHour(itemHour);
   }
+
+  const flattenedHours:ItemHour[] = useMemo(() => {
+    return itemsHour.flatMap(item => {
+      return item.hours.map(i => {
+        return {
+          hour: i,
+          intervalMin: item.intervalMin
+        } as ItemHour;
+      });
+    });
+  }, [itemsHour]);
+
 
   return (
     <HourItem>
       <FlatList
-        key={hours.length}
+        key={itemsHour.length}
         horizontal
         showsHorizontalScrollIndicator={false}
-        data={hours}
-        renderItem={({ item, index }) => (
+        data={flattenedHours}
+        keyExtractor={(hour, index) => `hour-${hour}-${index}`}
+        renderItem={({ item }) => (
           <TimeItem
             onPress={() => handleSelectHour(item)}
-            style={{ 
-              backgroundColor: (item === selectedHour) && '#4EADBE', 
-            }}
-            key={index}>
-            <TimeItemText style={{ color: (item === selectedHour) && '#FFF' }}>{item}</TimeItemText>
+            style={{ backgroundColor: (item.hour === selectedItemHour?.hour) && '#4EADBE' }}>
+            <TimeItemText style={{ color: (item.hour === selectedItemHour?.hour) && '#FFF' }}>{item.hour}</TimeItemText>
           </TimeItem>
         )}
       />

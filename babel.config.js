@@ -27,7 +27,8 @@ module.exports = function(api) {
             '@styles': './src/styles',
             '@assets': './src/assets',
             '@types': './src/types',
-            '@model': './src/model'
+            '@model': './src/model',
+            '@enums': './src/enums'
           }
         }
       ]

@@ -10,7 +10,7 @@ export class TestimonialsAction {
   }
 
 
-   public listAvaliacoesByEstabelecimentoId(estabelecimentoId:number): Promise<Avaliacao[]>{
+  public listAvaliacoesByEstabelecimentoId(estabelecimentoId:number): Promise<Avaliacao[]>{
     return this.avaliacaoApi.buscarAvaliacaoPorEstabelecimento(estabelecimentoId);
   }
 
