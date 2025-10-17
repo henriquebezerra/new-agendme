@@ -3,8 +3,8 @@ import { initReactI18next } from 'react-i18next';
 import * as Localization from 'expo-localization';
 
 // Importe seus arquivos de tradução
-import en from './en.json';
-import ptBR from './pt-BR.json';
+import en from './languages/en.json';
+import ptBR from './languages/pt-BR.json';
 
 const resources = {
   en: {

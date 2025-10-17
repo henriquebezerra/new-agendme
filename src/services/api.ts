@@ -3,13 +3,13 @@ import { Validation } from '@/model/interfaces/general-interfaces';
 import { API_BASE_URL, LOCALE_LANGUAGE } from '@env';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios, { AxiosError, type AxiosInstance } from 'axios';
-
+import { localization } from '@/localization/localization-manager';
 
 const errosCodes = [400, 404];
 
 const publicPaths = ['/auth/login', '/auth/refresh', '/usuario/perfis', '/usuario'];
 const noHandlePaths = ['/auth/login', '/auth/logout'];
-
+const localeLanguage = localization.languageTag;
 interface DefaultErrorMessages {
   [key : string]: string
 }
@@ -54,7 +54,7 @@ apiClient.interceptors.request.use(
         config.headers.Authorization = `Bearer ${token}`;
       }
 
-      config.headers['Accept-Language'] = LOCALE_LANGUAGE;
+      config.headers['Accept-Language'] = localeLanguage || LOCALE_LANGUAGE;
       return config;
     },
     (error) => {
