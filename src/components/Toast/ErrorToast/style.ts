@@ -4,7 +4,8 @@ const style = StyleSheet.create({
   errorStyle: {
     borderLeftColor: '#F44336',
     backgroundColor: '#FFEBEE',
-    borderRadius: 10
+    borderRadius: 10,
+    minHeight: 80
   },
   titleStyle: {
     fontSize: 16,
@@ -13,10 +14,11 @@ const style = StyleSheet.create({
   },
   descriptionStyle: {
     fontSize: 14,
-    color: '#666'
+    color: '#666',
   },
   contentContainerStyle:{
-    paddingHorizontal: 15
+    paddingHorizontal: 15,
+    paddingVertical: 15
   }
 });
 

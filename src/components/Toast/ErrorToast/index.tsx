@@ -8,6 +8,7 @@ const ErrorToast = (props: any) => (
     contentContainerStyle={style.contentContainerStyle}
     text1Style={style.titleStyle}
     text2Style={style.descriptionStyle}
+    text2NumberOfLines={2}
   />
 );
 

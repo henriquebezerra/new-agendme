@@ -5,6 +5,7 @@ const style = StyleSheet.create({
     borderLeftColor: '#4CAF50', 
     backgroundColor: '#E8F5E8',
     borderRadius: 10,
+    minHeight: 80
   },
   titleStyle: {
     fontSize: 16,
@@ -16,7 +17,8 @@ const style = StyleSheet.create({
     color: '#666'
   },
   contentContainerStyle:{
-    paddingHorizontal: 15
+    paddingHorizontal: 15,
+    paddingVertical: 15
   }
 });
 
